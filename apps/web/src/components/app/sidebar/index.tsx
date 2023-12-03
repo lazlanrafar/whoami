@@ -1,7 +1,7 @@
-import { Logo } from "../../../assets";
 import { CiLogout } from "react-icons/ci";
-import { sidebarMenus } from "../../../constants";
 import Image from "next/image";
+import { Logo } from "~/assets";
+import { sidebarMenus } from "~/constants";
 
 export default function AppSidebar() {
   const handleLogout = async () => {
