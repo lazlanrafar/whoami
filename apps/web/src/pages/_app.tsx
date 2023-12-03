@@ -1,6 +1,20 @@
-import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
+import { AppSidebar } from "../components/app";
+
+import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <div className="h-screen max-h-screen w-full overflow-y-auto bg-background-default">
+      <div className="flex max-h-full">
+        <AppSidebar />
+        <div className="flex flex-1 flex-col">
+          {/* <AppTopbar /> */}
+          <main className="overflow-auto">
+            <Component {...pageProps} />
+          </main>
+        </div>
+      </div>
+    </div>
+  );
 }
