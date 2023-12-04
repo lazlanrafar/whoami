@@ -1,8 +1,15 @@
 import { TypeSkill } from "../../types";
 import prisma from "../../utils/prisma";
 
-export const FetchSkill = async () => {
-  return await prisma.tbm_skill.findMany();
+export const FetchSkill = async (created_by: string) => {
+  return await prisma.tbm_skill.findMany({
+    where: {
+      created_by: created_by,
+    },
+    orderBy: {
+      year: "desc",
+    },
+  });
 };
 
 export const StoreSKill = async (data: TypeSkill) => {

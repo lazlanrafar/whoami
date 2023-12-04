@@ -10,7 +10,8 @@ import { TypeSkill } from "../../types";
 
 export const GetSkill = async (req: Request, res: Response) => {
   try {
-    const result: TypeSkill[] = await FetchSkill();
+    const created_by = req.cookies.user.id;
+    const result: TypeSkill[] = await FetchSkill(created_by);
 
     const yearNow = new Date().getFullYear();
     result.map((item) => {
@@ -27,6 +28,7 @@ export const CreateSKill = async (req: Request, res: Response) => {
   try {
     const data: TypeSkill = req.body;
 
+    data.created_by = req.cookies.user.id;
     await StoreSKill(data);
 
     return Ok(res, {}, "Success Create Skill");
