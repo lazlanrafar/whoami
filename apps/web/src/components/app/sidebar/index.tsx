@@ -5,10 +5,11 @@ import { Logo } from "@/assets";
 import { sidebarMenus } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
+import supabase from "@/supabase";
 
 export default function AppSidebar() {
   const handleLogout = () => {
-    console.log("logout");
+    supabase.auth.signOut();
   };
 
   return (
