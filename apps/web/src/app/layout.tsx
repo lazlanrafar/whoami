@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-
 import { Toaster } from "sonner";
 
 import { Inter as FontSans } from "next/font/google";
 import "@/app/globals.css";
+import { ThemeProvider } from "@/components/atoms/providers";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -22,8 +22,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${fontSans.className} dark`}>
-        {children}
+      <body className={`${fontSans.className}`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
         <Toaster richColors />
       </body>
     </html>
