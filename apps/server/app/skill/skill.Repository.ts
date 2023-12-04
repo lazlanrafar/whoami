@@ -14,3 +14,15 @@ export const StoreSKill = async (data: TypeSkill) => {
     },
   });
 };
+
+export const UpdateSkill = async (id: string, data: TypeSkill) => {
+  return await prisma.tbm_skill.update({
+    where: {
+      id: id,
+    },
+    data: {
+      title: data.title,
+      year: data.year,
+    },
+  });
+};

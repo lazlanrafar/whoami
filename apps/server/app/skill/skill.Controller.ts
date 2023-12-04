@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { FetchSkill, StoreSKill } from "./skill.Repository";
+import { FetchSkill, StoreSKill, UpdateSkill } from "./skill.Repository";
 import { InternalServerError, Ok } from "../../utils/http-response";
 import { TypeSkill } from "../../types";
 
@@ -21,8 +21,19 @@ export const CreateSKill = async (req: Request, res: Response) => {
 
     return Ok(res, {}, "Success Create Skill");
   } catch (error) {
-    console.log(error);
-
     return InternalServerError(res, error, "Failed Create Skill");
+  }
+};
+
+export const EditSkill = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const data: TypeSkill = req.body;
+
+    await UpdateSkill(id, data);
+
+    return Ok(res, {}, "Success Update Skill");
+  } catch (error) {
+    return InternalServerError(res, error, "Failed Update Skill");
   }
 };
