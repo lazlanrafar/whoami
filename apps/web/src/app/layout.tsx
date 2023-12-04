@@ -3,7 +3,8 @@ import { Toaster } from "sonner";
 
 import { Inter as FontSans } from "next/font/google";
 import "@/app/globals.css";
-import { ThemeProvider } from "@/components/atoms/providers";
+import { ThemeProvider } from "@/components/atoms/provider-theme";
+import ReactQueryProvider from "@/components/atoms/provider-react-query";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -25,11 +26,11 @@ export default function RootLayout({
       <body className={`${fontSans.className} h-screen overflow-hidden`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <ReactQueryProvider>{children}</ReactQueryProvider>
         </ThemeProvider>
         <Toaster richColors />
       </body>

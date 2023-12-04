@@ -10,8 +10,6 @@ export const AuthenticatedRoute: React.FC<React.PropsWithChildren> = ({
   const router = useRouter();
 
   useEffect(() => {
-    console.log(user);
-
     if (!user) {
       router.replace("/login");
     }

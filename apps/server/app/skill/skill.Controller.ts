@@ -12,6 +12,11 @@ export const GetSkill = async (req: Request, res: Response) => {
   try {
     const result: TypeSkill[] = await FetchSkill();
 
+    const yearNow = new Date().getFullYear();
+    result.map((item) => {
+      item.level = yearNow - item.year;
+    });
+
     return Ok(res, result, "Success Get Skill");
   } catch (error) {
     return InternalServerError(res, error, "Failed Get Skill");

@@ -1,4 +1,4 @@
-export type TypeSkill = {
+export type ISkill = {
   id?: string;
   title: string;
   year: number;

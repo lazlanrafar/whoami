@@ -28,6 +28,7 @@ import { DataTablePagination } from "./data-table-pagination";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { CrossIcon, X } from "lucide-react";
+import Image from "next/image";
 
 // import { DataTableToolbar } from "../components/data-table-toolbar";
 
@@ -35,12 +36,14 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   search?: string;
+  loading?: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   search,
+  loading,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -123,7 +126,7 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {table.getRowModel().rows?.length && !loading ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -145,7 +148,21 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  {loading ? (
+                    <div className="flex flex-col items-center justify-center w-full">
+                      <Image
+                        src={
+                          "https://media.tenor.com/cyORI7kwShQAAAAj/shigure-ui-dance.gif"
+                        }
+                        alt="Loading"
+                        width={80}
+                        height={80}
+                      />
+                      <p>Loading...</p>
+                    </div>
+                  ) : (
+                    "No results."
+                  )}
                 </TableCell>
               </TableRow>
             )}
