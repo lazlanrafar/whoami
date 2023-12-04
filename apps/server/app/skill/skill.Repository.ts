@@ -26,3 +26,11 @@ export const UpdateSkill = async (id: string, data: TypeSkill) => {
     },
   });
 };
+
+export const DestroySkill = async (id: string) => {
+  return await prisma.tbm_skill.delete({
+    where: {
+      id: id,
+    },
+  });
+};
