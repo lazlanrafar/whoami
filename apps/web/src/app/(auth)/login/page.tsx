@@ -41,10 +41,10 @@ export default function LoginPage() {
       <div className="flex flex-col space-y-2">
         <h1 className="text-2xl font-semibold tracking-tight">Login</h1>
         <p className="text-sm text-muted-foreground">
-          Enter your email below to login
+          Enter your email below to login or continue with social media
         </p>
       </div>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid sm:grid-cols-2 gap-2">
         <ButtonLoginGithub />
         <ButtonLoginGoogle />
       </div>
