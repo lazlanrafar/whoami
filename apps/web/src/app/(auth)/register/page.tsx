@@ -9,17 +9,24 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import supabase from "@/supabase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 const formSchema = z.object({
-  email: z.string().min(1, { message: "Email must to be filled" }),
-  password: z.string().min(1, { message: "Password must to be filled" }),
+  email: z.string().min(1, { message: "Email is required" }),
+  password: z.string().min(1, { message: "Password is required" }),
 });
 
 export default function LoginPage() {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,8 +35,21 @@ export default function LoginPage() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
+
+    const { error } = await supabase.auth.signUp({
+      email: values.email,
+      password: values.password,
+    });
+
+    if (error) toast.error(error.message);
+    else {
+      toast.success("Register success");
+      router.push("/login");
+    }
+
+    setLoading(false);
   }
 
   return (
@@ -51,7 +71,7 @@ export default function LoginPage() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input placeholder="Email Address" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -64,14 +84,14 @@ export default function LoginPage() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="shadcn" {...field} />
+                  <Input placeholder="Password" type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           <br />
-          <Button className="w-full" type="submit">
+          <Button className="w-full" type="submit" loading={loading}>
             Register
           </Button>
         </form>
