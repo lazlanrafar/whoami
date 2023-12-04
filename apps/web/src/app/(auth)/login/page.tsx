@@ -1,15 +1,9 @@
 "use client";
+
 import ButtonLoginGithub from "@/components/atoms/button-login-github";
 import ButtonLoginGoogle from "@/components/atoms/button-login-google";
 import HrText from "@/components/atoms/hr-text";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -43,59 +37,58 @@ export default function LoginPage() {
   }
 
   return (
-    <Card>
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Login</CardTitle>
-        <CardDescription>Login to your account</CardDescription>
-      </CardHeader>
-      <CardContent className="grid gap-4">
-        <div className="grid grid-cols-2 gap-6">
-          <ButtonLoginGithub />
-          <ButtonLoginGoogle />
-        </div>
-        <HrText text="Or continue with" />
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="shadcn" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input placeholder="shadcn" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <br />
-            <Button className="w-full" type="submit">
-              Submit
-            </Button>
-          </form>
-        </Form>
-
-        <p className="text-sm">
-          <span>Don't have an account?</span>
-          <Link href="/register" className="font-medium ml-1 hover:underline">
-            Register
-          </Link>
+    <>
+      <div className="flex flex-col space-y-2">
+        <h1 className="text-2xl font-semibold tracking-tight">Login</h1>
+        <p className="text-sm text-muted-foreground">
+          Enter your email below to login
         </p>
-      </CardContent>
-    </Card>
+      </div>
+      <div className="grid grid-cols-2 gap-2">
+        <ButtonLoginGithub />
+        <ButtonLoginGoogle />
+      </div>
+      <HrText text="Or continue with" />
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input placeholder="shadcn" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input placeholder="shadcn" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <br />
+          <Button className="w-full" type="submit">
+            Login
+          </Button>
+        </form>
+      </Form>
+      <p className="text-sm">
+        <span>Don't have an account?</span>
+        <Link href="/register" className="font-medium ml-1 hover:underline">
+          Register
+        </Link>
+      </p>
+    </>
   );
 }

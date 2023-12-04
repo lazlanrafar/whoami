@@ -1,6 +1,6 @@
 export default function HrText({ text }: { text: string }) {
   return (
-    <div className="relative">
+    <div className="relative my-5">
       <div className="absolute inset-0 flex items-center">
         <span className="w-full border-t" />
       </div>
