@@ -35,7 +35,7 @@ export const sidebarMenus: SidebarMenu[] = [
     items: [
       {
         name: "Skills",
-        link: "/skill",
+        link: "/setup/skills",
       },
       {
         name: "Social Media",

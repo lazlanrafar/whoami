@@ -12,6 +12,8 @@ export default function AppTopbar() {
         <p className="text-sm text-foreground-lighter">Preferences</p>
 
         <div className="flex gap-1 items-center">
+          <ToggleTheme />
+
           <Link href={siteConfig.links.github} target="_blank" rel="noreferrer">
             <div
               className={cn(
@@ -25,7 +27,6 @@ export default function AppTopbar() {
               <span className="sr-only">GitHub</span>
             </div>
           </Link>
-          <ToggleTheme />
         </div>
       </div>
     </div>
