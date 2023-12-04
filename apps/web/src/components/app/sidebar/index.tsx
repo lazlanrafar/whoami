@@ -1,10 +1,13 @@
+"use client";
+
 import { CiLogout } from "react-icons/ci";
+import { Logo } from "@/assets";
+import { sidebarMenus } from "@/constants";
 import Image from "next/image";
-import { Logo } from "~/assets";
-import { sidebarMenus } from "~/constants";
+import Link from "next/link";
 
 export default function AppSidebar() {
-  const handleLogout = async () => {
+  const handleLogout = () => {
     console.log("logout");
   };
 
@@ -32,7 +35,7 @@ export default function AppSidebar() {
                 <ul className="space-y-1">
                   {menu.items.map((item) => (
                     <li key={item.name}>
-                      <a className="block" target="_self" href={item.link}>
+                      <Link className="block" target="_self" href={item.link}>
                         <span className="group flex max-w-full cursor-pointer items-center py-1 text-sm text-foreground-light hover:text-foreground-default">
                           {item.icon && (
                             <span className="mr-3 text-foreground-lighter">
@@ -41,7 +44,7 @@ export default function AppSidebar() {
                           )}
                           <span>{item.name}</span>
                         </span>
-                      </a>
+                      </Link>
                     </li>
                   ))}
                 </ul>
