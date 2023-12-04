@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { Toaster } from "sonner";
+
 import { Inter as FontSans } from "next/font/google";
 import "@/app/globals.css";
 
@@ -20,7 +22,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${fontSans.className} dark`}>{children}</body>
+      <body className={`${fontSans.className} dark`}>
+        {children}
+        <Toaster richColors />
+      </body>
     </html>
   );
 }
