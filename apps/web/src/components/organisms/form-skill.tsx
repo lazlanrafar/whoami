@@ -23,6 +23,7 @@ import {
 import {
   useCreateSkillMutation,
   useGetSkillByIdQuery,
+  useUpdateSkillMutation,
 } from "@/api/event/skill";
 
 interface Props {
@@ -39,7 +40,12 @@ export default function FormSkill({ onClose, idUpdate }: Props) {
     },
   });
 
-  const { data, refetch } = useGetSkillByIdQuery(idUpdate ?? "");
+  const {
+    data,
+    refetch,
+    isSuccess,
+    isPending: pendingFetch,
+  } = useGetSkillByIdQuery(idUpdate ?? "");
 
   useEffect(() => {
     refetch();
@@ -47,12 +53,16 @@ export default function FormSkill({ onClose, idUpdate }: Props) {
 
     form.setValue("title", data?.data?.data?.title);
     form.setValue("year", data?.data?.data?.year);
-  }, [idUpdate]);
+  }, [idUpdate, form, isSuccess]);
 
-  const { mutate: createSkill, isPending } = useCreateSkillMutation();
+  const { mutate: createSkill, isPending: pendingCreate } =
+    useCreateSkillMutation();
+  const { mutate: updateSkill, isPending: pendingUpdate } =
+    useUpdateSkillMutation();
 
   async function onSubmit(values: z.infer<typeof formSkillSchema>) {
-    await createSkill(values);
+    if (idUpdate) await updateSkill({ id: idUpdate, ...values });
+    else await createSkill(values);
 
     onClose();
   }
@@ -105,7 +115,7 @@ export default function FormSkill({ onClose, idUpdate }: Props) {
               type="submit"
               size={"sm"}
               className="w-full"
-              loading={isPending}
+              loading={pendingCreate || pendingUpdate || pendingFetch}
             >
               Submit
             </Button>
