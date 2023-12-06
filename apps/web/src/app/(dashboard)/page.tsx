@@ -19,12 +19,14 @@ export default function Home() {
       <div className="mt-8">
         <div className="space-y-3">
           <p>
-            This is NOT a component library. It's a collection of re-usable
-            components that you can copy and paste into your apps.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Repudiandae, ex et. Doloremque, eaque. Magnam, obcaecati sequi.
+            Suscipit rem omnis, quae esse impedit vitae. Eveniet harum vero iste
+            quos recusandae distinctio!
           </p>
 
           <p className="italic">
-            Use this as a reference to build your own component libraries.
+            Use this as a resource to build your own personal website.
           </p>
         </div>
       </div>
