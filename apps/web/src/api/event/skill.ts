@@ -1,5 +1,5 @@
 import axiosInstance from "..";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ISkill } from "@/types";
 import { toast } from "sonner";
 
@@ -11,16 +11,24 @@ export const useGetSkillQuery = () => {
     queryFn: () => {
       return axiosInstance.get(baseUrl);
     },
+    refetchOnMount: false,
   });
 };
 
 export const useCreateSkillMutation = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
-    onSuccess: () => {
-      useGetSkillQuery().refetch();
-    },
     mutationFn: (data: ISkill) => {
       return axiosInstance.post(baseUrl, data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["skill"] as any);
+
+      toast.success("Skill created successfully");
+    },
+    onError(error, variables, context) {
+      toast.error(error.message);
     },
   });
 };

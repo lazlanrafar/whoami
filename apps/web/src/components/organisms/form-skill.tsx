@@ -21,7 +21,6 @@ import {
   FormMessage,
 } from "../ui/form";
 import { useCreateSkillMutation } from "@/api/event/skill";
-import { toast } from "sonner";
 
 interface Props {
   onClose: () => void;
