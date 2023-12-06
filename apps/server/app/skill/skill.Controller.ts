@@ -2,16 +2,17 @@ import { Request, Response } from "express";
 import {
   DestroySkill,
   FetchSkill,
+  FetchSkillById,
   StoreSKill,
   UpdateSkill,
 } from "./skill.Repository";
 import { InternalServerError, Ok } from "../../utils/http-response";
-import { TypeSkill } from "../../types";
+import { ISkill } from "../../types";
 
 export const GetSkill = async (req: Request, res: Response) => {
   try {
     const created_by = req.cookies.user.id;
-    const result: TypeSkill[] = await FetchSkill(created_by);
+    const result: ISkill[] = await FetchSkill(created_by);
 
     const yearNow = new Date().getFullYear();
     result.map((item) => {
@@ -24,9 +25,20 @@ export const GetSkill = async (req: Request, res: Response) => {
   }
 };
 
+export const GetSkillById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const result = await FetchSkillById(id);
+
+    return Ok(res, result, "Success Get Skill By Id");
+  } catch (error) {
+    return InternalServerError(res, error, "Failed Get Skill By Id");
+  }
+};
+
 export const CreateSKill = async (req: Request, res: Response) => {
   try {
-    const data: TypeSkill = req.body;
+    const data: ISkill = req.body;
 
     data.created_by = req.cookies.user.id;
     await StoreSKill(data);
@@ -40,7 +52,7 @@ export const CreateSKill = async (req: Request, res: Response) => {
 export const EditSkill = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const data: TypeSkill = req.body;
+    const data: ISkill = req.body;
 
     await UpdateSkill(id, data);
 

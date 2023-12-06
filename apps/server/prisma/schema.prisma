@@ -14,7 +14,7 @@ model tbm_skill {
   id         String   @id @default(uuid())
   title      String
   year       Int
-  created_by String?
+  created_by String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
