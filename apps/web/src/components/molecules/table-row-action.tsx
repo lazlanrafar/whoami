@@ -33,7 +33,7 @@ export default function TableRowAction({ items }: Props) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
         {items.map((item, i) => (
-          <DropdownMenuItem key={i} className="py-2">
+          <DropdownMenuItem key={i} className="py-2" onClick={item.onClick}>
             <div className="flex items-center gap-2">
               {item.icon}
               {item.title}
