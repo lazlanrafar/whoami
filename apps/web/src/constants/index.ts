@@ -1,2 +1,2 @@
-export * from "./sidebar-menus";
-export * from "./site-config";
+export * from "./sidebarMenus";
+export * from "./siteConfig";

@@ -1,6 +1,6 @@
 "use client";
 import { AppSidebar, AppTopbar } from "@/components/app";
-import { AuthenticatedRoute } from "@/middleware/authenticated-route";
+import { AuthenticatedRoute } from "@/components/guard";
 
 export default function RootLayout({
   children,
