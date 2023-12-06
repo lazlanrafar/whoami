@@ -9,7 +9,7 @@ const nextConfig = {
         hostname: "cdn.discordapp.com",
       },
       {
-        hostname: "localhost",
+        hostname: "saweria.co",
       },
       {
         hostname: "media.tenor.com",

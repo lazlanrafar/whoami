@@ -1,32 +1,44 @@
+"use client";
 import ToggleTheme from "@/components/atoms/toggle-theme";
-import { buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/constants";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+import Image from "next/image";
 import { FaGithub } from "react-icons/fa";
+import AppTopbarLink from "./topbar-link";
+import { useStore } from "@/store";
+
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function AppTopbar() {
+  const { user } = useStore();
+  const [username, setUsername] = useState("");
+
+  const pathname = usePathname().split("/").join(" / ").split("-").join(" ");
+
+  useEffect(() => {
+    setUsername(user?.user_metadata?.preferred_username ?? "");
+  }, [user]);
+
   return (
     <div>
       <div className="flex h-12 max-h-12 items-center justify-between py-2 px-5 border-b ">
-        <p className="text-sm text-foreground-lighter">Preferences</p>
+        <div>
+          <p className="text-sm text-muted-foreground">
+            <span>{username}</span>
+            <span>{pathname}</span>
+          </p>
+        </div>
 
         <div className="flex gap-1 items-center">
           <ToggleTheme />
 
-          <Link href={siteConfig.links.github} target="_blank" rel="noreferrer">
-            <div
-              className={cn(
-                buttonVariants({
-                  variant: "ghost",
-                }),
-                "w-9 px-0"
-              )}
-            >
-              <FaGithub className="h-[1.2rem] w-[1.2rem]" />
-              <span className="sr-only">GitHub</span>
-            </div>
-          </Link>
+          <AppTopbarLink href={siteConfig.links.github} tooltip="Github">
+            <FaGithub className="h-[1.2rem] w-[1.2rem]" />
+          </AppTopbarLink>
+
+          <AppTopbarLink href={siteConfig.links.saweria} tooltip="Saweria ✌️">
+            <Image src={"/saweria.png"} alt="Logo" width={23} height={23} />
+          </AppTopbarLink>
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@ export const sidebarMenus: SidebarMenu[] = [
   {
     items: [
       {
-        name: "Dashboard",
+        name: "Introduction",
         link: "/",
       },
     ],
