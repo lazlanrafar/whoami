@@ -32,3 +32,21 @@ export const useCreateSkillMutation = () => {
     },
   });
 };
+
+export const useDeleteSkillMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (id: string) => {
+      return axiosInstance.delete(baseUrl + "/" + id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["skill"] as any);
+
+      toast.success("Skill deleted successfully");
+    },
+    onError(error, variables, context) {
+      toast.error(error.message);
+    },
+  });
+};

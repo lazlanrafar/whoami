@@ -4,7 +4,7 @@ import { DataTable } from "@/components/atoms/data-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { FiTrash, FiEdit } from "react-icons/fi";
 import TableRowAction from "@/components/molecules/table-row-action";
-import { useGetSkillQuery } from "@/api/event/skill";
+import { useDeleteSkillMutation, useGetSkillQuery } from "@/api/event/skill";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
@@ -38,7 +38,13 @@ export default function SkillsPage() {
                 setModalForm(true);
               },
             },
-            { title: "Delete", icon: <FiTrash /> },
+            {
+              title: "Delete",
+              icon: <FiTrash />,
+              onClick: () => {
+                handleDelete(row.original.id);
+              },
+            },
           ]}
         />
       ),
@@ -49,6 +55,8 @@ export default function SkillsPage() {
   if (error) toast.error(error.message);
 
   const [modalForm, setModalForm] = useState<boolean>(false);
+
+  const { mutate: handleDelete } = useDeleteSkillMutation();
 
   return (
     <div>
