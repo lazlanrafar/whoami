@@ -15,7 +15,7 @@ export const GetSkill = async (req: Request, res: Response) => {
 
     const yearNow = new Date().getFullYear();
     result.map((item) => {
-      item.level = yearNow - item.year;
+      item.level = yearNow - item.year + 1;
     });
 
     return Ok(res, result, "Success Get Skill");

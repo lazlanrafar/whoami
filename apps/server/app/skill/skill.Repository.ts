@@ -7,7 +7,7 @@ export const FetchSkill = async (created_by: string) => {
       created_by: created_by,
     },
     orderBy: {
-      year: "desc",
+      year: "asc",
     },
   });
 };
