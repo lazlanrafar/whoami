@@ -27,7 +27,7 @@ import {
 import { DataTablePagination } from "./data-table-pagination";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { CrossIcon, X } from "lucide-react";
+import { X } from "lucide-react";
 import Image from "next/image";
 
 // import { DataTableToolbar } from "../components/data-table-toolbar";
@@ -61,6 +61,11 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
       columnFilters,
+    },
+    initialState: {
+      pagination: {
+        pageSize: 5,
+      },
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,

@@ -15,7 +15,7 @@ export default function RootLayout({
           <div className="flex flex-1 flex-col">
             <AppTopbar />
             <main className="flex-1 flex-grow overflow-auto">
-              <div className="max-w-7xl p-4">{children}</div>
+              <div className="max-w-7xl p-5 sm:p-10">{children}</div>
             </main>
           </div>
         </div>

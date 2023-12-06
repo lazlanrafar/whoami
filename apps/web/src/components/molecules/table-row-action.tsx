@@ -1,4 +1,4 @@
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
+import { IoChevronDown } from "react-icons/io5";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -22,10 +22,12 @@ export default function TableRowAction({ items }: Props) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="ghost"
-          className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+          variant="outline"
+          className="flex items-center gap-1 data-[state=open]:bg-muted"
+          size={"sm"}
         >
-          <HiOutlineDotsHorizontal className="h-4 w-4" />
+          Action
+          <IoChevronDown className="h-4 w-4" />
           <span className="sr-only">Open menu</span>
         </Button>
       </DropdownMenuTrigger>

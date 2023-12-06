@@ -5,7 +5,7 @@ import { Logo } from "@/assets";
 import { sidebarMenus } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
-import supabase from "@/supabase";
+import supabase from "@/lib/supabase";
 
 export default function AppSidebar() {
   const handleLogout = () => {

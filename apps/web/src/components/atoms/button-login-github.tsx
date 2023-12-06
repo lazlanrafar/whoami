@@ -1,4 +1,4 @@
-import supabase from "@/supabase";
+import supabase from "@/lib/supabase";
 import { Button } from "../ui/button";
 import { FaGithub } from "react-icons/fa";
 import { toast } from "sonner";

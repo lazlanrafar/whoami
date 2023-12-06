@@ -5,13 +5,21 @@ services:
     image: postgres
     container_name: whoami-postgres
     ports:
-      - "5432:5432"
+      - "54322:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: db-whoami
     volumes:
       - data_postgres:/var/lib/postgresql/data
+  redis:
+    image: redis
+    container_name: whoami-redis
+    ports:
+      - "63792:6379"
+    volumes:
+      - data_redis:/data
 
 volumes:
   data_postgres:
+  data_redis:
