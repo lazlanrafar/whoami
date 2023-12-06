@@ -31,7 +31,7 @@ export default function AppSidebar() {
               <div key={i} className="border-b py-5 px-6 ">
                 {menu.header && (
                   <div className="flex space-x-3 mb-3">
-                    <span className="text-sm text-foreground font-light w-full">
+                    <span className="text-sm text-foreground w-full">
                       {menu.header}
                     </span>
                   </div>
