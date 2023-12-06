@@ -26,15 +26,9 @@ import { X } from "lucide-react";
 import { useGetSkillQuery } from "@/api/event/skill";
 import { ISkill } from "@/types";
 import SelectMultiple, { ISelectMultiple } from "../molecules/select-multiple";
+import { formProjectSchema } from "@/schemas";
 
 export default function FormProject() {
-  // const form = useForm<z.infer<typeof formSkillSchema>>({
-  //     resolver: zodResolver(formSkillSchema),
-  //     defaultValues: {
-  //       title: "",
-  //       year: new Date().getFullYear(),
-  //     },
-  //   });
   const [listSkill, setListSkill] = React.useState<ISelectMultiple[]>([]);
   const { data: skills } = useGetSkillQuery();
 
@@ -49,15 +43,20 @@ export default function FormProject() {
     );
   }, [skills]);
 
-  const form = useForm({
-    defaultValues: {
-      title: "",
-    },
-  });
-
   const [selectedSkill, setSelectedSkill] = React.useState<ISelectMultiple[]>(
     []
   );
+
+  const form = useForm<z.infer<typeof formProjectSchema>>({
+    resolver: zodResolver(formProjectSchema),
+    defaultValues: {
+      thumbnail: "",
+      title: "",
+      description: "",
+      url: "https://",
+      source_code: "https://github.com/",
+    },
+  });
 
   const onSubmit = (data: any) => {
     console.log(selectedSkill);
@@ -67,6 +66,20 @@ export default function FormProject() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+        <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Thumbnail</FormLabel>
+              <FormControl>
+                <Input type="file" {...field} />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="title"
@@ -83,26 +96,52 @@ export default function FormProject() {
         />
         <FormField
           control={form.control}
-          name="title"
+          name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Year</FormLabel>
+              <FormLabel>Description</FormLabel>
               <FormControl>
-                <Textarea {...field} />
+                <Textarea placeholder="input description" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="url"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>URL</FormLabel>
+              <FormControl>
+                <Input placeholder="input url" {...field} />
+              </FormControl>
 
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="source_code"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Source Code</FormLabel>
+              <FormControl>
+                <Input placeholder="input source code" {...field} />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <SelectMultiple
           label="Tech Stack"
           items={listSkill}
           onValueChange={(value) => setSelectedSkill(value)}
         />
 
-        <br />
-        <div className="flex mt-5">
+        <div className="flex justify-end">
           <Button type="submit" size={"sm"} className="">
             Save Project
           </Button>
