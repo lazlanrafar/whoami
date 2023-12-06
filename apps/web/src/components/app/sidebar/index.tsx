@@ -6,11 +6,14 @@ import { sidebarMenus } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 import supabase from "@/lib/supabase";
+import { usePathname } from "next/navigation";
 
 export default function AppSidebar() {
   const handleLogout = () => {
     supabase.auth.signOut();
   };
+
+  const pathname = usePathname();
 
   return (
     <div className="h-screen max-h-screen w-64 overflow-auto border-r hidden sm:block">
@@ -28,7 +31,7 @@ export default function AppSidebar() {
               <div key={i} className="border-b py-5 px-6 ">
                 {menu.header && (
                   <div className="flex space-x-3 mb-3">
-                    <span className="text-sm text-muted-foreground w-full">
+                    <span className="text-sm text-foreground font-light w-full">
                       {menu.header}
                     </span>
                   </div>
@@ -37,7 +40,13 @@ export default function AppSidebar() {
                   {menu.items.map((item) => (
                     <li key={item.name}>
                       <Link className="block" target="_self" href={item.link}>
-                        <span className="group flex max-w-full cursor-pointer items-center py-1 text-sm text-foreground hover:underline">
+                        <span
+                          className={`group flex max-w-full cursor-pointer items-center text-sm hover:underline py-1 ${
+                            pathname === item.link
+                              ? "font-medium text-foreground"
+                              : "text-muted-foreground"
+                          }`}
+                        >
                           {item.icon && (
                             <span className="mr-3 text-muted-foreground">
                               {item.icon}
@@ -59,7 +68,7 @@ export default function AppSidebar() {
                     target="_self"
                     onClick={() => handleLogout()}
                   >
-                    <span className="group flex max-w-full cursor-pointer items-center py-1 text-sm text-foreground hover:underline">
+                    <span className="group flex max-w-full cursor-pointer items-center py-1 text-sm text-muted-foreground hover:underline">
                       <span className="mr-3 text-muted-foreground">
                         <CiLogout />
                       </span>

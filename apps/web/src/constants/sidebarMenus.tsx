@@ -1,4 +1,4 @@
-import { MdDashboard, MdOutlineArrowOutward } from "react-icons/md";
+import { MdOutlineArrowOutward } from "react-icons/md";
 
 type SidebarMenuItems = {
   icon?: React.ReactNode;
@@ -15,7 +15,6 @@ export const sidebarMenus: SidebarMenu[] = [
   {
     items: [
       {
-        icon: <MdDashboard />,
         name: "Dashboard",
         link: "/",
       },
