@@ -24,8 +24,8 @@ export const sidebarMenus: SidebarMenu[] = [
     header: "Projects",
     items: [
       {
-        name: "List Projects",
-        link: "/dashboard/projects",
+        name: "All Projects",
+        link: "/projects",
       },
     ],
   },

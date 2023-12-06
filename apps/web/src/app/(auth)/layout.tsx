@@ -11,7 +11,9 @@ export default function AuthLayout({
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
           <div className="absolute inset-0 bg-zinc-900" />
           <div className="relative z-20 flex items-center text-lg font-medium">
-            Whoami.
+            <h1 className="text-background font-medium font-mono select-none">
+              Whoami.
+            </h1>
           </div>
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">

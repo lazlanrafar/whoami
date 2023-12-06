@@ -2,7 +2,7 @@ export default function Home() {
   return (
     <main className="">
       <div className="space-y-2">
-        <h2 className="text-2xl font-bold tracking-tight">Introduction</h2>
+        <h2 className="text-2xl font-semibold tracking-tight">Introduction</h2>
         <p className="text-muted-foreground">
           API Provider for your personal website. Built with{" "}
           <a

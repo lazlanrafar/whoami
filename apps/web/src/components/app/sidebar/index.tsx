@@ -20,7 +20,10 @@ export default function AppSidebar() {
       <div className="mb-2">
         <div className="flex h-12 max-h-12 items-center border-b px-6 ">
           <a href={"/"} className="">
-            <Image src={Logo} alt="Logo" width={80} height={40} />
+            {/* <Image src={Logo} alt="Logo" width={80} height={40} /> */}
+            <h1 className="text-foreground font-medium font-mono select-none">
+              Whoami.
+            </h1>
           </a>
         </div>
       </div>
