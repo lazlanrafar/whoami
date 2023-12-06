@@ -11,6 +11,15 @@ export const useGetSkillQuery = () => {
     queryFn: () => {
       return axiosInstance.get(baseUrl);
     },
+  });
+};
+
+export const useGetSkillByIdQuery = (id: string) => {
+  return useQuery({
+    queryKey: ["skill", id],
+    queryFn: () => {
+      return axiosInstance.get(baseUrl + "/" + id);
+    },
     refetchOnMount: false,
   });
 };

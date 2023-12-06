@@ -12,20 +12,24 @@ import { useState } from "react";
 import { Dialog } from "@/components/ui/dialog";
 import FormSkill from "@/components/organisms/form-skill";
 
+const skillColumns: ColumnDef<any>[] = [
+  {
+    header: "Title",
+    accessorKey: "title",
+  },
+  {
+    header: "Year",
+    accessorKey: "year",
+  },
+  {
+    header: "Level",
+    accessorKey: "level",
+  },
+];
+
 export default function SkillsPage() {
   const columns: ColumnDef<any>[] = [
-    {
-      header: "Title",
-      accessorKey: "title",
-    },
-    {
-      header: "Year",
-      accessorKey: "year",
-    },
-    {
-      header: "Level",
-      accessorKey: "level",
-    },
+    ...skillColumns,
     {
       header: "Actions",
       cell: ({ row }) => (
@@ -35,7 +39,7 @@ export default function SkillsPage() {
               title: "Edit",
               icon: <FiEdit />,
               onClick: () => {
-                setModalForm(true);
+                handleUpdate(row.original.id);
               },
             },
             {
@@ -54,7 +58,19 @@ export default function SkillsPage() {
   const { data, error, isLoading } = useGetSkillQuery();
   if (error) toast.error(error.message);
 
+  const [idUpdate, setIdUpdate] = useState<string>("");
   const [modalForm, setModalForm] = useState<boolean>(false);
+
+  const handleUpdate = (id: string) => {
+    setIdUpdate(id);
+    setModalForm(true);
+  };
+
+  const handleOpenModal = () => setModalForm(true);
+  const handleCloseModal = () => {
+    setIdUpdate("");
+    setModalForm(false);
+  };
 
   const { mutate: handleDelete } = useDeleteSkillMutation();
 
@@ -67,7 +83,7 @@ export default function SkillsPage() {
 
       <div className="mt-3">
         <div className="flex justify-end">
-          <Button size={"sm"} onClick={() => setModalForm(true)}>
+          <Button size={"sm"} onClick={() => handleOpenModal()}>
             <PlusIcon className="mr-1" size={14} />
             Add Skill
           </Button>
@@ -80,13 +96,8 @@ export default function SkillsPage() {
         />
       </div>
 
-      <Dialog
-        open={modalForm}
-        onOpenChange={(open) => {
-          setModalForm(open);
-        }}
-      >
-        <FormSkill onClose={() => setModalForm(false)} />
+      <Dialog open={modalForm} onOpenChange={(open) => setModalForm(open)}>
+        <FormSkill onClose={() => handleCloseModal()} idUpdate={idUpdate} />
       </Dialog>
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DialogContent,
   DialogDescription,
@@ -20,13 +20,17 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { useCreateSkillMutation } from "@/api/event/skill";
+import {
+  useCreateSkillMutation,
+  useGetSkillByIdQuery,
+} from "@/api/event/skill";
 
 interface Props {
   onClose: () => void;
+  idUpdate?: string;
 }
 
-export default function FormSkill({ onClose }: Props) {
+export default function FormSkill({ onClose, idUpdate }: Props) {
   const form = useForm<z.infer<typeof formSkillSchema>>({
     resolver: zodResolver(formSkillSchema),
     defaultValues: {
@@ -34,6 +38,16 @@ export default function FormSkill({ onClose }: Props) {
       year: new Date().getFullYear(),
     },
   });
+
+  const { data, refetch } = useGetSkillByIdQuery(idUpdate ?? "");
+
+  useEffect(() => {
+    refetch();
+    if (!data) return;
+
+    form.setValue("title", data?.data?.data?.title);
+    form.setValue("year", data?.data?.data?.year);
+  }, [idUpdate]);
 
   const { mutate: createSkill, isPending } = useCreateSkillMutation();
 
