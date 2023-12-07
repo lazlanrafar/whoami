@@ -1,7 +1,11 @@
 "use client";
 
-import { useGetProjectQuery } from "@/api/event/project";
+import {
+  useGetProjectByIdQuery,
+  useGetProjectQuery,
+} from "@/api/event/project";
 import CardProject from "@/components/molecules/card-project";
+import DetailProject from "@/components/organisms/detail-project";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,6 +32,7 @@ export default function ProjectsPage() {
 
   const { data, isLoading } = useGetProjectQuery();
 
+  const [projectId, setProjectId] = useState<string>("");
   const sheetRef = useRef<HTMLButtonElement>(null);
 
   return (
@@ -58,6 +63,7 @@ export default function ProjectsPage() {
             <CardProject
               project={project}
               onClick={() => {
+                setProjectId(project.id ?? "");
                 sheetRef.current?.click();
               }}
             />
@@ -65,20 +71,7 @@ export default function ProjectsPage() {
         </div>
       )}
 
-      <Sheet>
-        <SheetTrigger className="hidden" ref={sheetRef}>
-          Open
-        </SheetTrigger>
-        <SheetContent>
-          <SheetHeader>
-            <SheetTitle>Are you sure absolutely sure?</SheetTitle>
-            <SheetDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </SheetDescription>
-          </SheetHeader>
-        </SheetContent>
-      </Sheet>
+      <DetailProject sheetRef={sheetRef} projectId={projectId} />
     </main>
   );
 }

@@ -14,6 +14,16 @@ export const useGetProjectQuery = () => {
   });
 };
 
+export const useGetProjectByIdQuery = (id: string) => {
+  return useQuery({
+    queryKey: ["project", id],
+    queryFn: () => {
+      return axiosInstance.get(baseUrl + "/" + id);
+    },
+    refetchOnMount: false,
+  });
+};
+
 export const useCreateProjectMutation = () => {
   const queryClient = useQueryClient();
 

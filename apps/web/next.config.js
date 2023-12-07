@@ -5,11 +5,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "cdn.discordapp.com",
-      },
-      {
-        hostname: "saweria.co",
+        hostname: "localhost",
       },
       {
         hostname: "media.tenor.com",
