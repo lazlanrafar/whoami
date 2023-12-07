@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import { InternalServerError, Ok } from "../../utils/http-response";
 import { IProject } from "../../types";
 import {
+  DestroyAllProjectTechnology,
+  DestroyProject,
   FetchProject,
   FetchProjectById,
   StoreProject,
@@ -53,5 +55,18 @@ export const CreateProject = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     return InternalServerError(res, error, "Failed to create project");
+  }
+};
+
+export const DeleteProject = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    await DestroyAllProjectTechnology(id);
+    await DestroyProject(id);
+
+    return Ok(res, null, "Project deleted successfully");
+  } catch (error) {
+    return InternalServerError(res, error, "Failed to delete project");
   }
 };

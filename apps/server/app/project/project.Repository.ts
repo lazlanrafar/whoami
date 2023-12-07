@@ -60,6 +60,14 @@ export const StoreProjectTechnology = async (data: IProjectTechnology) => {
   });
 };
 
+export const DestroyProject = async (id: string) => {
+  return await prisma.tbl_project.delete({
+    where: {
+      id: id,
+    },
+  });
+};
+
 export const DestroyAllProjectTechnology = async (project_id: string) => {
   return await prisma.tbl_project_technology.deleteMany({
     where: {
