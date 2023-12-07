@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useStore } from "@/store";
 import { Copy } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -16,14 +17,14 @@ export default function GuidesPage() {
       url: "[WHOAMI_API_URL]/projects",
     },
     {
-      name: "Fetch Project By ID",
-      method: "GET",
-      url: "[WHOAMI_API_URL]/projects/:id",
-    },
-    {
       name: "Fetch Skills",
       method: "GET",
       url: "[WHOAMI_API_URL]/skills",
+    },
+    {
+      name: "Fetch Assets",
+      method: "GET",
+      url: "[WHOAMI_ASSETS_URL]/[ASSETS_PATH]",
     },
   ];
 
@@ -40,7 +41,20 @@ export default function GuidesPage() {
       </div>
 
       <Separator className="my-5" />
-      <h4 className="text-sm mb-3">API Endpoints</h4>
+      <div className="mb-5">
+        <h4 className="text-sm mb-1">API Endpoints</h4>
+        <p className="text-sm text-muted-foreground">
+          Get your API URL from{" "}
+          <Link
+            href="/docs/api-preferences"
+            className="text-foreground hover:underline"
+          >
+            API Preferences
+          </Link>
+          . You can use this API URL to fetch your data.
+        </p>
+      </div>
+
       <div className="space-y-3">
         {endPoints.map((endPoint) => (
           <div key={endPoint.url} className="">

@@ -30,15 +30,15 @@ export const sidebarMenus: SidebarMenu[] = [
     ],
   },
   {
-    header: "Setup",
+    header: "Preferences",
     items: [
       {
         name: "Skills",
-        link: "/setup/skills",
+        link: "/preferences/skills",
       },
       {
-        name: "Social Media",
-        link: "/setup/social-media",
+        name: "Social Media (Coming Soon)",
+        link: "#",
       },
     ],
   },
