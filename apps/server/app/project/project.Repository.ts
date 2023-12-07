@@ -6,6 +6,17 @@ export const FetchProject = async (created_by: string) => {
     where: {
       created_by: created_by,
     },
+    include: {
+      technology: {
+        select: {
+          skill: {
+            select: {
+              title: true,
+            },
+          },
+        },
+      },
+    },
     orderBy: {
       created_at: "desc",
     },

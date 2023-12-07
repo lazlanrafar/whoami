@@ -7,6 +7,6 @@ export function cn(...inputs: ClassValue[]) {
 
 const whoAmiAssetUrl = process.env.NEXT_PUBLIC_WHOAMI_ASSETS_URL as string;
 
-export function whoAmiAsset(path: string) {
-  return `${whoAmiAssetUrl}/${path}`;
+export function whoAmiAsset(path?: string) {
+  return path ? `${whoAmiAssetUrl}/${path}` : "/no-image.jpg";
 }

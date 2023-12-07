@@ -8,6 +8,19 @@ export type ISkill = {
   updated_at?: Date;
 };
 
+export type IProjectForm = {
+  id?: string;
+  thumbnail?: string;
+  title: string;
+  description: string;
+  source_code?: string;
+  url?: string;
+  technology?: string[];
+  created_by: string;
+  created_at?: Date;
+  updated_at?: Date;
+};
+
 export type IProject = {
   id?: string;
   thumbnail?: string;
@@ -15,16 +28,12 @@ export type IProject = {
   description: string;
   source_code?: string;
   url?: string;
-  technology?: IProjectTechnology[] | string[];
+  technology?: IProjectTechnology[];
   created_by: string;
   created_at?: Date;
   updated_at?: Date;
 };
 
 export type IProjectTechnology = {
-  id?: string;
-  project_id: string;
-  skill_id: string;
-  created_at?: Date;
-  updated_at?: Date;
+  skill: ISkill;
 };

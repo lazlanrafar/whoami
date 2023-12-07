@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "..";
-import { IProject } from "@/types";
+import { IProjectForm } from "@/types";
 import { toast } from "sonner";
 
 const baseUrl = "/project";
@@ -18,7 +18,7 @@ export const useCreateProjectMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: IProject) => {
+    mutationFn: (data: IProjectForm) => {
       return axiosInstance.post(baseUrl, data, {
         headers: {
           "Content-Type": "multipart/form-data",

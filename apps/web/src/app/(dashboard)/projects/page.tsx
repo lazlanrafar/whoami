@@ -1,6 +1,8 @@
 "use client";
 
 import { useGetProjectQuery } from "@/api/event/project";
+import CardProject from "@/components/molecules/card-project";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { whoAmiAsset } from "@/lib/utils";
 import { useStore } from "@/store";
@@ -42,29 +44,9 @@ export default function ProjectsPage() {
       {isLoading ? (
         <span>Loading...</span>
       ) : (
-        <div className="grid grid-cols-3 gap-4 mt-5">
+        <div className="grid grid-cols-4 gap-4 mt-5">
           {data?.data?.data.map((project: IProject) => (
-            <div key={project.id} className="border  rounded-lg p-3">
-              <div className="flex justify-between">
-                <div className="flex gap-2">
-                  {project.thumbnail ? (
-                    <img
-                      src={whoAmiAsset(project.thumbnail)}
-                      alt={project.title}
-                      className="w-8 h-8 rounded-full"
-                    />
-                  ) : (
-                    ""
-                  )}
-                  <div>
-                    <h4 className="text-sm font-semibold">{project.title}</h4>
-                    <p className="text-xs text-muted-foreground">
-                      {project.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <CardProject project={project} />
           ))}
         </div>
       )}

@@ -15,7 +15,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "../ui/textarea";
 import { useGetSkillQuery } from "@/api/event/skill";
-import { IProject, ISkill } from "@/types";
+import { IProjectForm, ISkill } from "@/types";
 import SelectMultiple, { ISelectMultiple } from "../molecules/select-multiple";
 import { formProjectSchema } from "@/schemas";
 import { useCreateProjectMutation } from "@/api/event/project";
@@ -76,7 +76,7 @@ export default function FormProject() {
     useCreateProjectMutation();
 
   const onSubmit = async (data: any) => {
-    const payload: IProject = {
+    const payload: IProjectForm = {
       ...data,
       thumbnail: thumbnail,
       technology: selectedSkill.map((item) => item.value),
