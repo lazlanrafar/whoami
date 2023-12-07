@@ -20,15 +20,15 @@ export default function ApiPreferencesPage() {
   const WHOAMI_URL = process.env.NEXT_PUBLIC_WHOAMI_URL;
   const { user } = useStore();
 
+  const WHOAMI_ASSETS_URL = process.env.NEXT_PUBLIC_WHOAMI_ASSETS_URL;
+
   useEffect(() => {
     if (!user) return;
-
     setAPIUrl(`${WHOAMI_URL}/member/${user?.id}`);
   }, [user]);
 
-  const handleCopyAPIUrl = () => {
-    navigator.clipboard.writeText(APIUrl);
-
+  const handleCopy = (string: string) => {
+    navigator.clipboard.writeText(string);
     toast.success("Copied to clipboard");
   };
 
@@ -48,12 +48,32 @@ export default function ApiPreferencesPage() {
         <CardContent className="py-3">
           <div className="flex items-start gap-3">
             <Input readOnly value={APIUrl} className="h-full" />
-            <Button className="h-full" onClick={handleCopyAPIUrl}>
+            <Button className="h-full" onClick={() => handleCopy(APIUrl)}>
               <Copy size={16} />
             </Button>
           </div>
           <p className="text-xs text-muted-foreground mt-3">
-            A RESTful endpoint for querying and managing your database.
+            A RESTful endpoint for querying your data.
+          </p>
+        </CardContent>
+      </Card>
+      <br />
+      <Card>
+        <CardHeader className="border-b py-3">
+          <CardTitle className="text-sm">Assets URL</CardTitle>
+        </CardHeader>
+        <CardContent className="py-3">
+          <div className="flex items-start gap-3">
+            <Input readOnly value={WHOAMI_ASSETS_URL} className="h-full" />
+            <Button
+              className="h-full"
+              onClick={() => handleCopy(WHOAMI_ASSETS_URL as string)}
+            >
+              <Copy size={16} />
+            </Button>
+          </div>
+          <p className="text-xs text-muted-foreground mt-3">
+            A RESTful endpoint for accessing your assets.
           </p>
         </CardContent>
       </Card>
