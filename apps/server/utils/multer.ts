@@ -33,23 +33,3 @@ export const uploadThumbnail = multer({
     );
   },
 });
-
-// const handleUploadThumbnail = async (
-//   req: Request,
-//   res: Response
-// ): Promise<any> => {
-//   return new Promise((resolve, reject): void => {
-//     uploadThumbnail(req, res, (error) => {
-//       console.log("MULTER ERROR", error);
-//       if (error) {
-//         reject(error);
-//       }
-
-//       console.log("MULTER FILE", req.file, req.files);
-
-//       resolve({ file: req.file, body: req.body });
-//     });
-//   });
-// };
-
-// export { handleUploadThumbnail };

@@ -28,17 +28,18 @@ export const CreateProject = async (req: Request, res: Response) => {
     data.created_by = req.cookies.user.id;
     const project = await StoreProject(data);
 
-    for (const iterator of data.technology as string[]) {
-      await StoreProjectTechnology({
-        project_id: project.id,
-        skill_id: iterator as string,
-      });
+    if (data.technology && data.technology.length > 0) {
+      for (const iterator of data.technology as string[]) {
+        await StoreProjectTechnology({
+          project_id: project.id,
+          skill_id: iterator as string,
+        });
+      }
     }
 
     return Ok(res, project, "Project created successfully");
   } catch (error) {
     console.log(error);
-
     return InternalServerError(res, error, "Failed to create project");
   }
 };

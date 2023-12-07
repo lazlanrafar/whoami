@@ -1,9 +1,18 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "..";
 import { IProject } from "@/types";
 import { toast } from "sonner";
 
 const baseUrl = "/project";
+
+export const useGetProjectQuery = () => {
+  return useQuery({
+    queryKey: ["project"],
+    queryFn: () => {
+      return axiosInstance.get(baseUrl);
+    },
+  });
+};
 
 export const useCreateProjectMutation = () => {
   const queryClient = useQueryClient();

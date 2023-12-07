@@ -21,8 +21,10 @@ import { formProjectSchema } from "@/schemas";
 import { useCreateProjectMutation } from "@/api/event/project";
 import { toast } from "sonner";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function FormProject() {
+  const router = useRouter();
   const [listSkill, setListSkill] = React.useState<ISelectMultiple[]>([]);
   const { data: skills } = useGetSkillQuery();
 
@@ -70,7 +72,8 @@ export default function FormProject() {
     },
   });
 
-  const { mutate: createProject } = useCreateProjectMutation();
+  const { mutate: createProject, isPending: pendingCreate } =
+    useCreateProjectMutation();
 
   const onSubmit = async (data: any) => {
     const payload: IProject = {
@@ -79,9 +82,9 @@ export default function FormProject() {
       technology: selectedSkill.map((item) => item.value),
     };
 
-    console.log(payload);
-
     await createProject(payload);
+
+    router.push("/projects");
   };
 
   return (
@@ -200,7 +203,12 @@ export default function FormProject() {
         />
 
         <div className="flex justify-end">
-          <Button type="submit" size={"sm"} className="">
+          <Button
+            type="submit"
+            size={"sm"}
+            className=""
+            loading={pendingCreate}
+          >
             Save Project
           </Button>
         </div>
