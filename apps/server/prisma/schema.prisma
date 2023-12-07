@@ -11,10 +11,34 @@ datasource db {
 }
 
 model tbm_skill {
-  id         String   @id @default(uuid())
+  id         String                   @id @default(uuid())
   title      String
   year       Int
   created_by String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at DateTime                 @default(now())
+  updated_at DateTime                 @updatedAt
+  project    tbl_project_technology[]
+}
+
+model tbl_project {
+  id          String                   @id @default(uuid())
+  thumbnail   String?                  @default("")
+  title       String
+  description String?                  @default("")
+  source_code String?                  @default("")
+  url         String?                  @default("")
+  created_by  String
+  created_at  DateTime                 @default(now())
+  updated_at  DateTime                 @updatedAt
+  technology  tbl_project_technology[]
+}
+
+model tbl_project_technology {
+  id         String      @id @default(uuid())
+  project_id String
+  skill_id   String
+  project    tbl_project @relation(fields: [project_id], references: [id])
+  skill      tbm_skill   @relation(fields: [skill_id], references: [id])
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
 }
