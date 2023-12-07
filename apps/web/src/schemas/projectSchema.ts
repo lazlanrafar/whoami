@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const formProjectSchema = z.object({
-  thumbnail: z.string(),
+  thumbnail: z.any().optional(),
   title: z.string().min(1),
   description: z.string().min(1),
   url: z.string().min(1),

@@ -12,7 +12,7 @@ const storageFile: multer.StorageEngine = multer.diskStorage({
   },
 });
 
-const uploadThumbnail = multer({
+export const uploadThumbnail = multer({
   storage: storageFile,
   limits: {
     fileSize: 10000000, // 10MB
@@ -32,21 +32,24 @@ const uploadThumbnail = multer({
       )
     );
   },
-}).single("thumbnail");
+});
 
-const handleUploadThumbnail = async (
-  req: Request,
-  res: Response
-): Promise<any> => {
-  return new Promise((resolve, reject): void => {
-    uploadThumbnail(req, res, (error) => {
-      if (error) {
-        reject(error);
-      }
+// const handleUploadThumbnail = async (
+//   req: Request,
+//   res: Response
+// ): Promise<any> => {
+//   return new Promise((resolve, reject): void => {
+//     uploadThumbnail(req, res, (error) => {
+//       console.log("MULTER ERROR", error);
+//       if (error) {
+//         reject(error);
+//       }
 
-      resolve({ file: req.file, body: req.body });
-    });
-  });
-};
+//       console.log("MULTER FILE", req.file, req.files);
 
-export { handleUploadThumbnail };
+//       resolve({ file: req.file, body: req.body });
+//     });
+//   });
+// };
+
+// export { handleUploadThumbnail };

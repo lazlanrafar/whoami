@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { InternalServerError, Ok } from "../../utils/http-response";
 import { IProject } from "../../types";
 import { StoreProject, StoreProjectTechnology } from "./project.Repository";
-import { handleUploadThumbnail } from "../../utils/multer";
 
 export type UploadedFile = {
   fieldname: string; // file
@@ -19,10 +18,10 @@ export const CreateProject = async (req: Request, res: Response) => {
   try {
     const data: IProject = req.body;
 
-    const uploadResult = await handleUploadThumbnail(req, res);
-    const file: UploadedFile = uploadResult.file;
+    if (req.file) data.thumbnail = req.file.filename;
+    else data.thumbnail = "";
 
-    data.thumbnail = file.filename;
+    data.created_by = req.cookies.user.id;
     const project = await StoreProject(data);
 
     for (const iterator of data.technology as string[]) {
@@ -34,6 +33,8 @@ export const CreateProject = async (req: Request, res: Response) => {
 
     return Ok(res, project, "Project created successfully");
   } catch (error) {
+    console.log(error);
+
     return InternalServerError(res, error, "Failed to create project");
   }
 };
