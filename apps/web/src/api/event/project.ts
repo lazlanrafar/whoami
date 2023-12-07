@@ -46,6 +46,28 @@ export const useCreateProjectMutation = () => {
   });
 };
 
+export const useUpdateProjectMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (data: IProjectForm) => {
+      return axiosInstance.put(baseUrl + "/" + data.id, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["project"] as any);
+
+      toast.success("Project updated successfully");
+    },
+    onError(error, variables, context) {
+      toast.error(error.message);
+    },
+  });
+};
+
 export const useDeleteProjectMutation = () => {
   const queryClient = useQueryClient();
 
@@ -56,7 +78,7 @@ export const useDeleteProjectMutation = () => {
     onSuccess: () => {
       queryClient.invalidateQueries(["project"] as any);
 
-      toast.success("Project created successfully");
+      toast.success("Project deleted successfully");
     },
     onError(error, variables, context) {
       toast.error(error.message);

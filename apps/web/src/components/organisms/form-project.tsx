@@ -21,6 +21,7 @@ import { formProjectSchema } from "@/schemas";
 import {
   useCreateProjectMutation,
   useGetProjectByIdQuery,
+  useUpdateProjectMutation,
 } from "@/api/event/project";
 import { toast } from "sonner";
 import Image from "next/image";
@@ -104,6 +105,8 @@ export default function FormProject({ projectId }: Props) {
 
   const { mutate: createProject, isPending: pendingCreate } =
     useCreateProjectMutation();
+  const { mutate: updateProject, isPending: pendingUpdate } =
+    useUpdateProjectMutation();
 
   const onSubmit = async (data: any) => {
     const payload: IProjectForm = {
@@ -112,7 +115,8 @@ export default function FormProject({ projectId }: Props) {
       technology: selectedSkill.map((item) => item.value),
     };
 
-    await createProject(payload);
+    if (projectId) await updateProject({ id: projectId, ...payload });
+    else await createProject(payload);
 
     router.push("/projects");
   };
@@ -238,7 +242,7 @@ export default function FormProject({ projectId }: Props) {
             type="submit"
             size={"sm"}
             className=""
-            loading={pendingCreate}
+            loading={pendingCreate || pendingUpdate}
           >
             Save Project
           </Button>

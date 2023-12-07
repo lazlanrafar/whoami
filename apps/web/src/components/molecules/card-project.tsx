@@ -34,9 +34,13 @@ export default function CardProject({ project, onClick }: Props) {
             <Badge>
               <span>{project.technology?.[0].skill.title}</span>
             </Badge>
-            <Badge>
-              <span>+{project.technology.length - 1}</span>
-            </Badge>
+            {project.technology?.length > 1 ? (
+              <Badge>
+                <span>+{project.technology?.length - 1}</span>
+              </Badge>
+            ) : (
+              <></>
+            )}
           </div>
         ) : (
           <></>
