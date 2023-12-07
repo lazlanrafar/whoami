@@ -18,12 +18,20 @@ import { useGetSkillQuery } from "@/api/event/skill";
 import { IProjectForm, ISkill } from "@/types";
 import SelectMultiple, { ISelectMultiple } from "../molecules/select-multiple";
 import { formProjectSchema } from "@/schemas";
-import { useCreateProjectMutation } from "@/api/event/project";
+import {
+  useCreateProjectMutation,
+  useGetProjectByIdQuery,
+} from "@/api/event/project";
 import { toast } from "sonner";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { whoAmiAsset } from "@/lib/utils";
 
-export default function FormProject() {
+interface Props {
+  projectId?: string;
+}
+
+export default function FormProject({ projectId }: Props) {
   const router = useRouter();
   const [listSkill, setListSkill] = React.useState<ISelectMultiple[]>([]);
   const { data: skills } = useGetSkillQuery();
@@ -54,8 +62,6 @@ export default function FormProject() {
         return toast.error(`File size must be less than ${MAX_SIZE}MB`);
       }
 
-      console.log(e.target.files[0]);
-
       setThumbnail(e.target.files[0]);
       setThumbnailPreview(URL.createObjectURL(e.target.files[0]));
     }
@@ -71,6 +77,30 @@ export default function FormProject() {
       source_code: "https://github.com/",
     },
   });
+
+  const { data: project } = useGetProjectByIdQuery(projectId || "");
+  useEffect(() => {
+    if (!project) return;
+
+    form.setValue("thumbnail", project?.data?.data?.thumbnail || "");
+    form.setValue("title", project?.data?.data?.title || "");
+    form.setValue("description", project?.data?.data?.description || "");
+    form.setValue("url", project?.data?.data?.url || "");
+    form.setValue("source_code", project?.data?.data?.source_code || "");
+
+    setThumbnailPreview(
+      project?.data?.data?.thumbnail
+        ? whoAmiAsset(project?.data?.data?.thumbnail)
+        : ""
+    );
+
+    setSelectedSkill(
+      project?.data?.data?.technology?.map((item: any) => ({
+        label: item.skill.title,
+        value: item.skill.id,
+      })) || []
+    );
+  }, [project, projectId]);
 
   const { mutate: createProject, isPending: pendingCreate } =
     useCreateProjectMutation();
@@ -199,6 +229,7 @@ export default function FormProject() {
         <SelectMultiple
           label="Tech Stack"
           items={listSkill}
+          values={selectedSkill}
           onValueChange={(value) => setSelectedSkill(value)}
         />
 

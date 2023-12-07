@@ -18,18 +18,8 @@ import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { PencilIcon, TrashIcon } from "lucide-react";
 import { Badge } from "../ui/badge";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "../ui/alert-dialog";
 import ButtonDelete from "../atoms/button-delete";
+import { useRouter } from "next/navigation";
 
 interface Props {
   projectId: string;
@@ -42,6 +32,7 @@ export default function DetailProject({
   open,
   onOpenChange,
 }: Props) {
+  const router = useRouter();
   const [project, setProject] = React.useState<IProject | null>(null);
   const { data, isLoading } = useGetProjectByIdQuery(projectId);
 
@@ -54,6 +45,10 @@ export default function DetailProject({
   const handleDelete = () => {
     deleteProject(projectId);
     onOpenChange();
+  };
+
+  const handleUpdate = () => {
+    router.push(`/projects/form/${projectId}`);
   };
 
   return (
@@ -93,7 +88,11 @@ export default function DetailProject({
               <Separator className="my-5" />
 
               <div className="flex gap-2">
-                <Button variant={"outline"} className="flex gap-1">
+                <Button
+                  variant={"outline"}
+                  className="flex gap-1"
+                  onClick={handleUpdate}
+                >
                   <PencilIcon size={16} /> Update
                 </Button>
                 <ButtonDelete

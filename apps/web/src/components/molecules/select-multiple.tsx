@@ -18,27 +18,27 @@ export type ISelectMultiple = {
 interface Props {
   label: string;
   items: ISelectMultiple[];
+  values: ISelectMultiple[];
   onValueChange: (value: ISelectMultiple[]) => void;
 }
 
-export default function SelectMultiple({ label, items, onValueChange }: Props) {
-  const [values, setValues] = React.useState<ISelectMultiple[]>([]);
-
-  React.useEffect(() => {
-    onValueChange(values);
-  }, [values]);
-
+export default function SelectMultiple({
+  label,
+  items,
+  values,
+  onValueChange,
+}: Props) {
   const handlePushValue = (value: string) => {
     if (values.find((item) => item.value === value)) return;
 
-    setValues([
+    onValueChange([
       ...values,
       items.find((item) => item.value === value) || { label: "", value: "" },
     ]);
   };
 
   const handlePopValue = (value: string) => {
-    setValues(values.filter((item) => item.value !== value));
+    onValueChange(values.filter((item) => item.value !== value));
   };
 
   return (
