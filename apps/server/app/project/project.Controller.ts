@@ -8,6 +8,7 @@ import {
   FetchProjectById,
   StoreProject,
   StoreProjectTechnology,
+  UpdateProject,
 } from "./project.Repository";
 
 export const GetProject = async (req: Request, res: Response) => {
@@ -51,7 +52,36 @@ export const CreateProject = async (req: Request, res: Response) => {
       }
     }
 
-    return Ok(res, project, "Project created successfully");
+    return Ok(res, {}, "Project created successfully");
+  } catch (error) {
+    console.log(error);
+    return InternalServerError(res, error, "Failed to create project");
+  }
+};
+
+export const EditProject = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const data: IProject = req.body;
+
+    const oldProject = await FetchProjectById(id);
+
+    if (req.file) data.thumbnail = req.file.filename;
+    else data.thumbnail = oldProject?.thumbnail || "";
+
+    await UpdateProject(id, data);
+
+    await DestroyAllProjectTechnology(id);
+    if (data.technology && data.technology.length > 0) {
+      for (const iterator of data.technology as string[]) {
+        await StoreProjectTechnology({
+          project_id: id,
+          skill_id: iterator as string,
+        });
+      }
+    }
+
+    return Ok(res, {}, "Project created successfully");
   } catch (error) {
     console.log(error);
     return InternalServerError(res, error, "Failed to create project");
