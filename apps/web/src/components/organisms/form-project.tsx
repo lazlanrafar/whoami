@@ -80,8 +80,9 @@ export default function FormProject({ projectId }: Props) {
   });
 
   const { data: project } = useGetProjectByIdQuery(projectId || "");
+
   useEffect(() => {
-    if (!project) return;
+    if (!project?.data.data && !projectId) return;
 
     form.setValue("thumbnail", project?.data?.data?.thumbnail || "");
     form.setValue("title", project?.data?.data?.title || "");
@@ -101,7 +102,7 @@ export default function FormProject({ projectId }: Props) {
         value: item.skill.id,
       })) || []
     );
-  }, [project, projectId]);
+  }, [projectId]);
 
   const { mutate: createProject, isPending: pendingCreate } =
     useCreateProjectMutation();

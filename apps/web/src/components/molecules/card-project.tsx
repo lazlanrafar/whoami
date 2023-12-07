@@ -15,7 +15,7 @@ export default function CardProject({ project, onClick }: Props) {
       onClick={onClick}
     >
       <img
-        className=" max-h-[180px] rounded-lg w-full object-cover"
+        className="h-[140px] rounded-t-lg w-full object-cover"
         src={whoAmiAsset(project.thumbnail)}
         alt=""
       />
