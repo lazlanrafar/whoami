@@ -74,8 +74,8 @@ export default function FormProject({ projectId }: Props) {
       thumbnail: "",
       title: "",
       description: "",
-      url: "https://",
-      source_code: "https://github.com/",
+      url: "",
+      source_code: "",
     },
   });
 
@@ -129,7 +129,7 @@ export default function FormProject({ projectId }: Props) {
           {thumbnailPreview ? (
             <Image
               src={thumbnailPreview}
-              width={200}
+              width={300}
               height={200}
               alt="Thumbnail Preview"
             />
