@@ -1,7 +1,7 @@
 import { whoAmiAsset } from "@/lib/utils";
 import { IProject } from "@/types";
-import { Badge } from "lucide-react";
 import React from "react";
+import { Badge } from "../ui/badge";
 
 interface Props {
   project: IProject;
@@ -29,13 +29,18 @@ export default function CardProject({ project, onClick }: Props) {
           {project.description.substring(0, 50)}...
         </p>
 
-        <div className="flex flex-wrap gap-2">
-          {project.technology?.map((tech, iTech) => (
-            <Badge key={iTech}>
-              <span>{tech.skill.title}</span>
+        {project.technology?.length ? (
+          <div className="flex flex-wrap gap-2 mt-auto">
+            <Badge>
+              <span>{project.technology?.[0].skill.title}</span>
             </Badge>
-          ))}
-        </div>
+            <Badge>
+              <span>+{project.technology.length - 1}</span>
+            </Badge>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

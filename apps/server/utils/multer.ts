@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import multer from "multer";
 import path from "path";
 
-const EXTENSION = [".png", ".jpg", ".jpeg", "webp"];
+const EXTENSION = [".png", ".jpg", ".jpeg", ".webp"];
 const MIME_TYPE = ["image/png", "image/jpg", "image/jpeg", "image/webp"];
 
 const storageFile: multer.StorageEngine = multer.diskStorage({

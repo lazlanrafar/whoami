@@ -29,6 +29,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
+import ButtonDelete from "../atoms/button-delete";
 
 interface Props {
   projectId: string;
@@ -81,7 +82,7 @@ export default function DetailProject({
 
               <br />
               <h4 className="mb-2 text-sm font-medium">Tech Stack</h4>
-              <div className="flex gap-1">
+              <div className="flex gap-1 flex-wrap">
                 {project.technology?.map((tech, iTech) => (
                   <Badge key={iTech}>
                     <span>{tech.skill.title}</span>
@@ -95,36 +96,15 @@ export default function DetailProject({
                 <Button variant={"outline"} className="flex gap-1">
                   <PencilIcon size={16} /> Update
                 </Button>
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className="flex gap-1 text-red-500"
-                    >
-                      <TrashIcon size={16} /> Delete
-                    </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        Are you absolutely sure?
-                      </AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will permanently
-                        delete the <strong>{project.title}</strong> project.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction
-                        className="bg-red-500 hover:bg-red-600"
-                        onClick={() => handleDelete()}
-                      >
-                        Delete
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
+                <ButtonDelete
+                  onSubmit={handleDelete}
+                  message={
+                    <span>
+                      This action cannot be undone. This will permanently delete
+                      the <strong>{project.title}</strong> project.
+                    </span>
+                  }
+                />
               </div>
             </div>
           ) : (
