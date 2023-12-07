@@ -43,18 +43,18 @@ export const sidebarMenus: SidebarMenu[] = [
     ],
   },
   {
-    header: "Settings",
+    header: "Documentation",
     items: [
       {
         icon: <MdOutlineArrowOutward />,
-        name: "API Preferences",
-        link: "/settings/api-preferences",
+        name: "Guides",
+        link: "/docs/guides",
       },
-      // {
-      //   icon: <MdOutlineArrowOutward />,
-      //   name: "API Preferences",
-      //   link: "#",
-      // },
+      {
+        icon: <MdOutlineArrowOutward />,
+        name: "API Preferences",
+        link: "/docs/api-preferences",
+      },
     ],
   },
 ];
