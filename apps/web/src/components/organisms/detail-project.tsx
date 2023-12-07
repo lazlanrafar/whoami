@@ -8,7 +8,10 @@ import {
   SheetTrigger,
 } from "../ui/sheet";
 import { IProject } from "@/types";
-import { useGetProjectByIdQuery } from "@/api/event/project";
+import {
+  useDeleteProjectMutation,
+  useGetProjectByIdQuery,
+} from "@/api/event/project";
 import Image from "next/image";
 import { whoAmiAsset } from "@/lib/utils";
 import { Separator } from "../ui/separator";
@@ -29,10 +32,15 @@ import {
 
 interface Props {
   projectId: string;
-  sheetRef: React.RefObject<HTMLButtonElement>;
+  open: boolean;
+  onOpenChange: () => void;
 }
 
-export default function DetailProject({ projectId, sheetRef }: Props) {
+export default function DetailProject({
+  projectId,
+  open,
+  onOpenChange,
+}: Props) {
   const [project, setProject] = React.useState<IProject | null>(null);
   const { data, isLoading } = useGetProjectByIdQuery(projectId);
 
@@ -40,11 +48,16 @@ export default function DetailProject({ projectId, sheetRef }: Props) {
     setProject(data?.data?.data);
   }, [data]);
 
+  const { mutate: deleteProject, isPending } = useDeleteProjectMutation();
+
+  const handleDelete = () => {
+    deleteProject(projectId);
+    onOpenChange();
+  };
+
   return (
-    <Sheet>
-      <SheetTrigger className="hidden" ref={sheetRef}>
-        Open
-      </SheetTrigger>
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetTrigger className="hidden">Open</SheetTrigger>
       <SheetContent className="overflow-auto">
         <SheetHeader>
           <SheetTitle>Detail Project</SheetTitle>
@@ -103,7 +116,10 @@ export default function DetailProject({ projectId, sheetRef }: Props) {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction className="bg-red-500 hover:bg-red-600">
+                      <AlertDialogAction
+                        className="bg-red-500 hover:bg-red-600"
+                        onClick={() => handleDelete()}
+                      >
                         Delete
                       </AlertDialogAction>
                     </AlertDialogFooter>

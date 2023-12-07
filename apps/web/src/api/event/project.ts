@@ -45,3 +45,21 @@ export const useCreateProjectMutation = () => {
     },
   });
 };
+
+export const useDeleteProjectMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (projectId: string) => {
+      return axiosInstance.delete(baseUrl + "/" + projectId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["project"] as any);
+
+      toast.success("Project created successfully");
+    },
+    onError(error, variables, context) {
+      toast.error(error.message);
+    },
+  });
+};

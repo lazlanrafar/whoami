@@ -1,22 +1,9 @@
 "use client";
 
-import {
-  useGetProjectByIdQuery,
-  useGetProjectQuery,
-} from "@/api/event/project";
+import { useGetProjectQuery } from "@/api/event/project";
 import CardProject from "@/components/molecules/card-project";
 import DetailProject from "@/components/organisms/detail-project";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { whoAmiAsset } from "@/lib/utils";
 import { useStore } from "@/store";
 import { IProject } from "@/types";
 import Link from "next/link";
@@ -33,7 +20,7 @@ export default function ProjectsPage() {
   const { data, isLoading } = useGetProjectQuery();
 
   const [projectId, setProjectId] = useState<string>("");
-  const sheetRef = useRef<HTMLButtonElement>(null);
+  const [sheetDetailOpen, setSheetDetailOpen] = useState<boolean>(false);
 
   return (
     <main>
@@ -64,14 +51,18 @@ export default function ProjectsPage() {
               project={project}
               onClick={() => {
                 setProjectId(project.id ?? "");
-                sheetRef.current?.click();
+                setSheetDetailOpen(true);
               }}
             />
           ))}
         </div>
       )}
 
-      <DetailProject sheetRef={sheetRef} projectId={projectId} />
+      <DetailProject
+        projectId={projectId}
+        open={sheetDetailOpen}
+        onOpenChange={() => setSheetDetailOpen(!sheetDetailOpen)}
+      />
     </main>
   );
 }
