@@ -1,6 +1,17 @@
 import { IProject, IProjectTechnology } from "../../types";
 import prisma from "../../utils/prisma";
 
+export const FetchProject = async (created_by: string) => {
+  return await prisma.tbl_project.findMany({
+    where: {
+      created_by: created_by,
+    },
+    orderBy: {
+      created_at: "desc",
+    },
+  });
+};
+
 export const StoreProject = async (data: IProject) => {
   return await prisma.tbl_project.create({
     data: {
