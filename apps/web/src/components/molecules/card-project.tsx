@@ -3,9 +3,17 @@ import { IProject } from "@/types";
 import { Badge } from "lucide-react";
 import React from "react";
 
-export default function CardProject({ project }: { project: IProject }) {
+interface Props {
+  project: IProject;
+  onClick?: () => void;
+}
+
+export default function CardProject({ project, onClick }: Props) {
   return (
-    <div className="max-w-sm group cursor-pointer rounded-lg border bg-muted">
+    <div
+      className="max-w-sm group cursor-pointer rounded-lg border bg-muted"
+      onClick={onClick}
+    >
       <img
         className=" max-h-[180px] rounded-lg w-full object-cover"
         src={whoAmiAsset(project.thumbnail)}
@@ -22,9 +30,9 @@ export default function CardProject({ project }: { project: IProject }) {
         </p>
 
         <div className="flex flex-wrap gap-2">
-          {project.technology?.map((tech) => (
-            <Badge className="text-[10px]" color="primary">
-              {tech?.skill?.title}
+          {project.technology?.map((tech, iTech) => (
+            <Badge key={iTech}>
+              <span>{tech.skill.title}</span>
             </Badge>
           ))}
         </div>

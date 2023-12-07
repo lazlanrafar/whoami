@@ -23,6 +23,21 @@ export const FetchProject = async (created_by: string) => {
   });
 };
 
+export const FetchProjectById = async (id: string) => {
+  return await prisma.tbl_project.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      technology: {
+        select: {
+          skill: true,
+        },
+      },
+    },
+  });
+};
+
 export const StoreProject = async (data: IProject) => {
   return await prisma.tbl_project.create({
     data: {

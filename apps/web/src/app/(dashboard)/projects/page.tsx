@@ -4,11 +4,19 @@ import { useGetProjectQuery } from "@/api/event/project";
 import CardProject from "@/components/molecules/card-project";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { whoAmiAsset } from "@/lib/utils";
 import { useStore } from "@/store";
 import { IProject } from "@/types";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ProjectsPage() {
   const { user } = useStore();
@@ -19,7 +27,8 @@ export default function ProjectsPage() {
   }, [user]);
 
   const { data, isLoading } = useGetProjectQuery();
-  console.log(data);
+
+  const sheetRef = useRef<HTMLButtonElement>(null);
 
   return (
     <main>
@@ -46,10 +55,30 @@ export default function ProjectsPage() {
       ) : (
         <div className="grid grid-cols-4 gap-4 mt-5">
           {data?.data?.data.map((project: IProject) => (
-            <CardProject project={project} />
+            <CardProject
+              project={project}
+              onClick={() => {
+                sheetRef.current?.click();
+              }}
+            />
           ))}
         </div>
       )}
+
+      <Sheet>
+        <SheetTrigger className="hidden" ref={sheetRef}>
+          Open
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Are you sure absolutely sure?</SheetTitle>
+            <SheetDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </SheetDescription>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
     </main>
   );
 }

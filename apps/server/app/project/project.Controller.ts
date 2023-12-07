@@ -3,6 +3,7 @@ import { InternalServerError, Ok } from "../../utils/http-response";
 import { IProject } from "../../types";
 import {
   FetchProject,
+  FetchProjectById,
   StoreProject,
   StoreProjectTechnology,
 } from "./project.Repository";
@@ -13,6 +14,17 @@ export const GetProject = async (req: Request, res: Response) => {
     const projects = await FetchProject(createdBy);
 
     return Ok(res, projects, "Project fetched successfully");
+  } catch (error) {
+    return InternalServerError(res, error, "Failed to get project");
+  }
+};
+
+export const GetProjectById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const project = await FetchProjectById(id);
+
+    return Ok(res, project, "Project fetched successfully");
   } catch (error) {
     return InternalServerError(res, error, "Failed to get project");
   }
