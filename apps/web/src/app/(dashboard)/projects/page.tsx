@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function ProjectsPage() {
@@ -27,7 +28,9 @@ export default function ProjectsPage() {
       <hr className="border-dashed my-5" />
 
       <div className="flex">
-        <Button size={"sm"}>Add Project</Button>
+        <Link href="/projects/form">
+          <Button size={"sm"}>Add Project</Button>
+        </Link>
       </div>
     </main>
   );

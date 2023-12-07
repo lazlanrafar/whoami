@@ -14,15 +14,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "../ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { Badge } from "../ui/badge";
-import { X } from "lucide-react";
 import { useGetSkillQuery } from "@/api/event/skill";
 import { ISkill } from "@/types";
 import SelectMultiple, { ISelectMultiple } from "../molecules/select-multiple";
