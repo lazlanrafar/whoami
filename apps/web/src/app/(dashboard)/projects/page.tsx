@@ -18,10 +18,16 @@ export default function ProjectsPage() {
     setUsername(user?.user_metadata?.preferred_username ?? "");
   }, [user]);
 
-  const [page, setPage] = useState<number>(1);
-  const { data, isLoading, refetch } = useGetProjectQuery({
-    page,
+  const [limit, setLimit] = useState<number>(1);
+  const { data, isLoading, refetch, isFetching } = useGetProjectQuery({
+    limit: limit,
   });
+
+  useEffect(() => {
+    refetch();
+  }, [limit]);
+
+  console.log(data);
 
   const [projectId, setProjectId] = useState<string>("");
   const [sheetDetailOpen, setSheetDetailOpen] = useState<boolean>(false);
@@ -54,17 +60,31 @@ export default function ProjectsPage() {
           <SkeletonProject className="hidden sm:block" />
         </div>
       ) : (
-        <div className="grid lg:grid-cols-4 gap-4 mt-5">
-          {data?.data?.data.map((project: IProject) => (
-            <CardProject
-              project={project}
-              onClick={() => {
-                setProjectId(project.id ?? "");
-                setSheetDetailOpen(true);
-              }}
-            />
-          ))}
-        </div>
+        <>
+          <div className="grid lg:grid-cols-4 gap-4 mt-5">
+            {data?.data?.data.map((project: IProject) => (
+              <CardProject
+                project={project}
+                onClick={() => {
+                  setProjectId(project.id ?? "");
+                  setSheetDetailOpen(true);
+                }}
+              />
+            ))}
+          </div>
+
+          {data?.data?.pagination.next_page && (
+            <div className="flex justify-center mt-5">
+              <Button
+                size={"sm"}
+                onClick={() => setLimit(limit * 2)}
+                loading={isLoading || isFetching}
+              >
+                Load More
+              </Button>
+            </div>
+          )}
+        </>
       )}
 
       <DetailProject

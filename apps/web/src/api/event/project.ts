@@ -6,7 +6,7 @@ import { toast } from "sonner";
 const baseUrl = "/project";
 
 interface IParamsGetProject {
-  page: number;
+  limit: number;
 }
 
 export const useGetProjectQuery = (params: IParamsGetProject) => {
@@ -15,7 +15,7 @@ export const useGetProjectQuery = (params: IParamsGetProject) => {
     queryFn: () => {
       return axiosInstance.get(baseUrl, {
         params: {
-          page: params.page,
+          limit: params.limit,
         },
       });
     },

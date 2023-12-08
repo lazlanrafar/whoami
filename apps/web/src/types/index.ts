@@ -1,3 +1,5 @@
+export * from "./api";
+
 export type ISkill = {
   id?: string;
   title: string;
