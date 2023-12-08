@@ -14,12 +14,28 @@ export default function GuidesPage() {
     {
       name: "Fetch Projects",
       method: "GET",
-      url: "[WHOAMI_API_URL]/projects",
+      url: "[WHOAMI_API_URL]/projects?page=1&limit=10&search=",
+      description: (
+        <>
+          <p>
+            You can use params <code>search</code>, <code>page</code> and{" "}
+            <code>limit</code> to fetch data.
+          </p>
+        </>
+      ),
     },
     {
       name: "Fetch Skills",
       method: "GET",
-      url: "[WHOAMI_API_URL]/skills",
+      url: "[WHOAMI_API_URL]/skills?page=1&limit=10&search=",
+      description: (
+        <>
+          <p>
+            You can use params <code>search</code>, <code>page</code> and{" "}
+            <code>limit</code> to fetch data.
+          </p>
+        </>
+      ),
     },
     {
       name: "Fetch Assets",
@@ -72,6 +88,12 @@ export default function GuidesPage() {
                 <Copy size={16} />
               </Button>
             </div>
+
+            {endPoint.description && (
+              <div className="text-sm text-muted-foreground mt-2">
+                {endPoint.description}
+              </div>
+            )}
           </div>
         ))}
       </div>
