@@ -28,3 +28,12 @@ export type IProjectTechnology = {
   created_at?: Date;
   updated_at?: Date;
 };
+
+// =============================================== API
+
+export type IApiParams = {
+  created_by?: string;
+  search?: string;
+  page?: number;
+  limit?: number;
+};

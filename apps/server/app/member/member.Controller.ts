@@ -7,7 +7,17 @@ export const GetMemberProject = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
 
-    const projects = await FetchProject(userId);
+    const { search, page, limit } = req.query;
+
+    const _page = page ? parseInt(page as string) : 1;
+    const _limit = limit ? parseInt(limit as string) : 10;
+
+    const projects = await FetchProject({
+      created_by: userId as string,
+      search: search as string,
+      limit: _limit,
+      page: _page,
+    });
 
     return Ok(res, projects, "Member project fetched successfully");
   } catch (error) {

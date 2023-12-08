@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { InternalServerError, Ok } from "../../utils/http-response";
-import { IProject } from "../../types";
+import { IApiParams, IProject } from "../../types";
 import {
   DestroyAllProjectTechnology,
   DestroyProject,
@@ -14,7 +14,18 @@ import {
 export const GetProject = async (req: Request, res: Response) => {
   try {
     const createdBy = req.cookies.user.id;
-    const projects = await FetchProject(createdBy);
+
+    const { search, page, limit } = req.query;
+
+    const _page = page ? parseInt(page as string) : 1;
+    const _limit = limit ? parseInt(limit as string) : 10;
+
+    const projects = await FetchProject({
+      created_by: createdBy as string,
+      search: search as string,
+      limit: _limit,
+      page: _page,
+    });
 
     return Ok(res, projects, "Project fetched successfully");
   } catch (error) {

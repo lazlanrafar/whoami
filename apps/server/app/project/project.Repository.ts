@@ -1,10 +1,28 @@
-import { IProject, IProjectTechnology } from "../../types";
+import { IApiParams, IProject, IProjectTechnology } from "../../types";
 import prisma from "../../utils/prisma";
 
-export const FetchProject = async (created_by: string) => {
+export const FetchProject = async ({
+  created_by,
+  search,
+  limit = 10,
+  page = 1,
+}: {
+  created_by: string;
+  search?: string;
+  limit?: number;
+  page?: number;
+}) => {
+  console.log(search);
+
   return await prisma.tbl_project.findMany({
     where: {
       created_by: created_by,
+      ...(search && {
+        title: {
+          contains: search,
+          mode: "insensitive",
+        },
+      }),
     },
     include: {
       technology: {
@@ -20,6 +38,8 @@ export const FetchProject = async (created_by: string) => {
     orderBy: {
       created_at: "desc",
     },
+    take: limit,
+    skip: (page - 1) * limit,
   });
 };
 
