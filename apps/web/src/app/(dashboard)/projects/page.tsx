@@ -2,6 +2,7 @@
 
 import { useGetProjectQuery } from "@/api/event/project";
 import CardProject from "@/components/molecules/card-project";
+import SkeletonProject from "@/components/molecules/skeleton-project";
 import DetailProject from "@/components/organisms/detail-project";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store";
@@ -48,7 +49,12 @@ export default function ProjectsPage() {
       </div>
 
       {isLoading ? (
-        <span>Loading...</span>
+        <div className="grid lg:grid-cols-4 gap-4 mt-5">
+          <SkeletonProject />
+          <SkeletonProject className="hidden sm:block" />
+          <SkeletonProject className="hidden sm:block" />
+          <SkeletonProject className="hidden sm:block" />
+        </div>
       ) : (
         <div className="grid lg:grid-cols-4 gap-4 mt-5">
           {data?.data.map((project: IProject) => (

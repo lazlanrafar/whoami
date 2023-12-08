@@ -21,6 +21,7 @@ import { Badge } from "../ui/badge";
 import ButtonDelete from "../atoms/button-delete";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import SkeletonProject from "../molecules/skeleton-project";
 
 interface Props {
   projectId: string;
@@ -138,7 +139,7 @@ export default function DetailProject({
               </div>
             </div>
           ) : (
-            <span>Loading...</span>
+            <SkeletonProject />
           )}
         </div>
       </SheetContent>
