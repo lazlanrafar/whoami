@@ -8,6 +8,9 @@ const nextConfig = {
         hostname: "localhost",
       },
       {
+        hostname: "whoamiapi.lazlanrafar.com",
+      },
+      {
         hostname: "media.tenor.com",
       },
     ],
