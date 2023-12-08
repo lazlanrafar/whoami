@@ -7,6 +7,7 @@ const baseUrl = "/project";
 
 interface IParamsGetProject {
   limit: number;
+  search?: string;
 }
 
 export const useGetProjectQuery = (params: IParamsGetProject) => {
@@ -16,6 +17,7 @@ export const useGetProjectQuery = (params: IParamsGetProject) => {
       return axiosInstance.get(baseUrl, {
         params: {
           limit: params.limit,
+          search: params.search,
         },
       });
     },
