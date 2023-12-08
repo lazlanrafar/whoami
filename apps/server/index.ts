@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import path from "path";
 
 import Routes from "./routes";
+import { redisClient } from "./utils/redis";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+redisClient.connect();
 Routes(app);
 
 app.listen(port, () => {
