@@ -1,5 +1,5 @@
 "use client";
-import { AppSidebar, AppTopbar } from "@/components/app";
+import { AppFooter, AppSidebar, AppTopbar } from "@/components/app";
 import { AuthenticatedRoute } from "@/components/guard";
 
 export default function RootLayout({
@@ -14,8 +14,9 @@ export default function RootLayout({
           <AppSidebar />
           <div className="flex flex-1 flex-col">
             <AppTopbar />
-            <main className="flex-1 flex-grow overflow-auto">
+            <main className="flex flex-col flex-1 flex-grow overflow-auto h-full">
               <div className="max-w-7xl p-5 sm:p-10">{children}</div>
+              <AppFooter />
             </main>
           </div>
         </div>

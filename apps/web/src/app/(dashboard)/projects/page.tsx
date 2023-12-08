@@ -18,7 +18,7 @@ export default function ProjectsPage() {
     setUsername(user?.user_metadata?.preferred_username ?? "");
   }, [user]);
 
-  const [limit, setLimit] = useState<number>(1);
+  const [limit, setLimit] = useState<number>(8);
   const { data, isLoading, refetch, isFetching } = useGetProjectQuery({
     limit: limit,
   });

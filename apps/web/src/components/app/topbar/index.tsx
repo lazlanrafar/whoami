@@ -32,7 +32,7 @@ export default function AppTopbar() {
         <div className="flex gap-1 items-center">
           <ToggleTheme />
 
-          <AppTopbarLink href={siteConfig.links.github} tooltip="Github">
+          <AppTopbarLink href={siteConfig.links.source_code} tooltip="Github">
             <FaGithub className="h-[1.2rem] w-[1.2rem]" />
           </AppTopbarLink>
 

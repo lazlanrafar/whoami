@@ -81,7 +81,7 @@ export default function FormProject({ projectId }: Props) {
 
   const { data: project } = useGetProjectByIdQuery(projectId || "");
 
-  useEffect(() => {
+  const handleSetFormUpdate = () => {
     if (!project?.data.data && !projectId) return;
 
     form.setValue("thumbnail", project?.data?.thumbnail || "");
@@ -100,7 +100,19 @@ export default function FormProject({ projectId }: Props) {
         value: item.skill.id,
       })) || []
     );
-  }, [projectId, project, form]);
+  };
+
+  useEffect(() => {
+    if (!project?.data.data && !projectId) return;
+
+    handleSetFormUpdate();
+  }, []);
+
+  useEffect(() => {
+    if (!project?.data.data && !projectId) return;
+
+    handleSetFormUpdate();
+  }, [projectId]);
 
   const { mutate: createProject, isPending: pendingCreate } =
     useCreateProjectMutation();
