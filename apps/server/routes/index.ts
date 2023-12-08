@@ -7,7 +7,7 @@ import memberRouter from "../app/member/member.Route";
 
 export default function Routes(app: any) {
   const apiVersion = process.env.API_VERSION || "v1";
-  const preRoute = `/api/${apiVersion}`;
+  const preRoute = `/${apiVersion}`;
 
   app.use(`${preRoute}/skill`, AuthToken, skillRouter);
   app.use(`${preRoute}/project`, AuthToken, projectRouter);
