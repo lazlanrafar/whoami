@@ -30,7 +30,14 @@ export const GetMemberSkill = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
 
-    const skills = await FetchSkill(userId);
+    const { search, page, limit } = req.query;
+
+    const skills = await FetchSkill({
+      created_by: userId as string,
+      search: search as string,
+      limit: limit as string,
+      page: page as string,
+    });
 
     return Ok(res, skills, "Member project fetched successfully");
   } catch (error) {

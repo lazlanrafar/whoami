@@ -12,8 +12,6 @@ export const FetchProject = async ({
   limit?: number;
   page?: number;
 }) => {
-  console.log(search);
-
   return await prisma.tbl_project.findMany({
     where: {
       created_by: created_by,

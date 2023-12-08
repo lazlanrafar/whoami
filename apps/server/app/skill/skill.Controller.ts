@@ -12,14 +12,22 @@ import { ISkill } from "../../types";
 export const GetSkill = async (req: Request, res: Response) => {
   try {
     const created_by = req.cookies.user.id;
-    const result: ISkill[] = await FetchSkill(created_by);
+
+    const { search, page, limit } = req.query;
+
+    const skills: ISkill[] = await FetchSkill({
+      created_by: created_by as string,
+      search: search as string,
+      limit: limit as string,
+      page: page as string,
+    });
 
     const yearNow = new Date().getFullYear();
-    result.map((item) => {
+    skills.map((item) => {
       item.level = yearNow - item.year + 1;
     });
 
-    return Ok(res, result, "Success Get Skill");
+    return Ok(res, skills, "Success Get Skill");
   } catch (error) {
     return InternalServerError(res, error, "Failed Get Skill");
   }

@@ -1,14 +1,37 @@
 import { ISkill } from "../../types";
 import prisma from "../../utils/prisma";
 
-export const FetchSkill = async (created_by: string) => {
+export const FetchSkill = async ({
+  created_by,
+  limit,
+  page,
+  search,
+}: {
+  created_by: string;
+  search?: string;
+  limit?: string;
+  page?: string;
+}) => {
   return await prisma.tbm_skill.findMany({
     where: {
       created_by: created_by,
+      ...(search && {
+        title: {
+          contains: search,
+          mode: "insensitive",
+        },
+      }),
     },
     orderBy: {
       year: "asc",
     },
+    ...(limit && {
+      take: +limit,
+    }),
+    ...(page &&
+      limit && {
+        skip: (+page - 1) * +limit,
+      }),
   });
 };
 
