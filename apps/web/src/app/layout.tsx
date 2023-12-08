@@ -14,6 +14,33 @@ export const fontSans = FontSans({
 export const metadata: Metadata = {
   title: "Whoami",
   description: "a Personal API for your digital identity",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://whoami.lazlanrafar.com",
+    siteName: "Whoami",
+    images: [
+      {
+        url: "https://iili.io/JIDNu0N.png",
+        width: 1200,
+        height: 630,
+        alt: "Whoami",
+      },
+    ],
+  },
+  twitter: {
+    title: "Whoami",
+    site: "@lazlanrafar",
+    description: "a Personal API for your digital identity",
+    images: [
+      {
+        url: "https://iili.io/JIDNu0N.png",
+        width: 1200,
+        height: 620,
+        alt: "Whoami",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
