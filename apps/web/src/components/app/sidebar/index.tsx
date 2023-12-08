@@ -1,7 +1,6 @@
 "use client";
 
 import { CiLogout } from "react-icons/ci";
-import { Logo } from "@/assets";
 import { sidebarMenus } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
