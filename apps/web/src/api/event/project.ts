@@ -5,11 +5,19 @@ import { toast } from "sonner";
 
 const baseUrl = "/project";
 
-export const useGetProjectQuery = () => {
+interface IParamsGetProject {
+  page: number;
+}
+
+export const useGetProjectQuery = (params: IParamsGetProject) => {
   return useQuery({
     queryKey: ["project"],
     queryFn: () => {
-      return axiosInstance.get(baseUrl);
+      return axiosInstance.get(baseUrl, {
+        params: {
+          page: params.page,
+        },
+      });
     },
   });
 };

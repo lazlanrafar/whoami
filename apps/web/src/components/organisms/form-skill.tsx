@@ -51,8 +51,8 @@ export default function FormSkill({ onClose, idUpdate }: Props) {
     refetch();
     if (!data) return;
 
-    form.setValue("title", data?.data?.data?.title);
-    form.setValue("year", data?.data?.data?.year);
+    form.setValue("title", data?.data?.title);
+    form.setValue("year", data?.data?.year);
   }, [idUpdate, form, isSuccess]);
 
   const { mutate: createSkill, isPending: pendingCreate } =

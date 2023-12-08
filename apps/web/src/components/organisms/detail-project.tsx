@@ -20,6 +20,7 @@ import { PencilIcon, TrashIcon } from "lucide-react";
 import { Badge } from "../ui/badge";
 import ButtonDelete from "../atoms/button-delete";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface Props {
   projectId: string;
@@ -37,7 +38,7 @@ export default function DetailProject({
   const { data, isLoading } = useGetProjectByIdQuery(projectId);
 
   React.useEffect(() => {
-    setProject(data?.data?.data);
+    setProject(data?.data);
   }, [data]);
 
   const { mutate: deleteProject, isPending } = useDeleteProjectMutation();
@@ -74,6 +75,36 @@ export default function DetailProject({
               <p className="text-muted-foreground text-sm">
                 {project.description}
               </p>
+
+              <div className="space-y-3 mt-3">
+                {project.url && (
+                  <div className="">
+                    <h4 className="mb-1 text-sm font-medium">
+                      Project's Website
+                    </h4>
+                    <Link
+                      href={project.url}
+                      target="_blank"
+                      className="truncate text-muted-foreground hover:underline"
+                    >
+                      {project.url.substring(0, 30)}...
+                    </Link>
+                  </div>
+                )}
+
+                {project.source_code && (
+                  <div className="">
+                    <h4 className="mb-1 text-sm font-medium">Source Code</h4>
+                    <Link
+                      href={project.source_code}
+                      target="_blank"
+                      className="truncate text-muted-foreground hover:underline"
+                    >
+                      {project.source_code.substring(0, 30)}...
+                    </Link>
+                  </div>
+                )}
+              </div>
 
               <br />
               <h4 className="mb-2 text-sm font-medium">Tech Stack</h4>

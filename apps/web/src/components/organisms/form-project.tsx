@@ -41,7 +41,7 @@ export default function FormProject({ projectId }: Props) {
     if (!skills) return;
 
     setListSkill(
-      skills?.data?.data?.map((item: ISkill) => ({
+      skills?.data?.map((item: ISkill) => ({
         label: item.title,
         value: item.id,
       })) || []
@@ -84,25 +84,23 @@ export default function FormProject({ projectId }: Props) {
   useEffect(() => {
     if (!project?.data.data && !projectId) return;
 
-    form.setValue("thumbnail", project?.data?.data?.thumbnail || "");
-    form.setValue("title", project?.data?.data?.title || "");
-    form.setValue("description", project?.data?.data?.description || "");
-    form.setValue("url", project?.data?.data?.url || "");
-    form.setValue("source_code", project?.data?.data?.source_code || "");
+    form.setValue("thumbnail", project?.data?.thumbnail || "");
+    form.setValue("title", project?.data?.title || "");
+    form.setValue("description", project?.data?.description || "");
+    form.setValue("url", project?.data?.url || "");
+    form.setValue("source_code", project?.data?.source_code || "");
 
     setThumbnailPreview(
-      project?.data?.data?.thumbnail
-        ? whoAmiAsset(project?.data?.data?.thumbnail)
-        : ""
+      project?.data?.thumbnail ? whoAmiAsset(project?.data?.thumbnail) : ""
     );
 
     setSelectedSkill(
-      project?.data?.data?.technology?.map((item: any) => ({
+      project?.data?.technology?.map((item: any) => ({
         label: item.skill.title,
         value: item.skill.id,
       })) || []
     );
-  }, [projectId]);
+  }, [projectId, project, form]);
 
   const { mutate: createProject, isPending: pendingCreate } =
     useCreateProjectMutation();

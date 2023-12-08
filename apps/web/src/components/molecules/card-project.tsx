@@ -11,7 +11,7 @@ interface Props {
 export default function CardProject({ project, onClick }: Props) {
   return (
     <div
-      className="max-w-sm group cursor-pointer rounded-lg border bg-muted"
+      className="max-w-sm group cursor-pointer rounded-lg border hover:border-gray-500"
       onClick={onClick}
     >
       <img

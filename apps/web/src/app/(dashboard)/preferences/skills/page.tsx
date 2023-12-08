@@ -90,7 +90,7 @@ export default function SkillsPage() {
         </div>
         <DataTable
           columns={columns}
-          data={data?.data?.data || []}
+          data={data?.data || []}
           loading={isLoading}
           search="title"
         />

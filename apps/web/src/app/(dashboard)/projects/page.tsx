@@ -17,7 +17,12 @@ export default function ProjectsPage() {
     setUsername(user?.user_metadata?.preferred_username ?? "");
   }, [user]);
 
-  const { data, isLoading } = useGetProjectQuery();
+  const [page, setPage] = useState<number>(1);
+  const { data, isLoading, refetch } = useGetProjectQuery({
+    page,
+  });
+
+  console.log(data);
 
   const [projectId, setProjectId] = useState<string>("");
   const [sheetDetailOpen, setSheetDetailOpen] = useState<boolean>(false);
@@ -45,8 +50,8 @@ export default function ProjectsPage() {
       {isLoading ? (
         <span>Loading...</span>
       ) : (
-        <div className="grid grid-cols-4 gap-4 mt-5">
-          {data?.data?.data.map((project: IProject) => (
+        <div className="grid lg:grid-cols-4 gap-4 mt-5">
+          {data?.data.map((project: IProject) => (
             <CardProject
               project={project}
               onClick={() => {
