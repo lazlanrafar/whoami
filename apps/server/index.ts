@@ -5,10 +5,10 @@ import logger from "morgan";
 import cookieParser from "cookie-parser";
 import path from "path";
 
-import Routes from "./routes";
-import { redisClient } from "./utils/redis";
-
 dotenv.config();
+
+import { redisClient } from "./utils/redis";
+import Routes from "./routes";
 
 const app: Express = express();
 const port = process.env.API_PORT;
