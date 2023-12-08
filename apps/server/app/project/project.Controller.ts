@@ -6,6 +6,7 @@ import {
   DestroyProject,
   FetchProject,
   FetchProjectById,
+  FetchProjectLength,
   StoreProject,
   StoreProjectTechnology,
   UpdateProject,
@@ -27,7 +28,22 @@ export const GetProject = async (req: Request, res: Response) => {
       page: _page,
     });
 
-    return Ok(res, projects, "Project fetched successfully");
+    const totalRecords = await FetchProjectLength(createdBy as string);
+    const totalPage = Math.ceil(totalRecords / _limit);
+
+    const response = {
+      pagination: {
+        total_records: totalRecords,
+        total_pages: totalPage,
+        current_page: _page,
+        per_page: _limit,
+        next_page: _page < totalPage ? _page + 1 : null,
+        prev_page: _page > 1 ? _page - 1 : null,
+      },
+      data: projects,
+    };
+
+    return Ok(res, response, "Project fetched successfully");
   } catch (error) {
     return InternalServerError(res, error, "Failed to get project");
   }

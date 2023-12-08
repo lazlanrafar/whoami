@@ -41,6 +41,14 @@ export const FetchProject = async ({
   });
 };
 
+export const FetchProjectLength = async (created_by: string) => {
+  return await prisma.tbl_project.count({
+    where: {
+      created_by: created_by,
+    },
+  });
+};
+
 export const FetchProjectById = async (id: string) => {
   return await prisma.tbl_project.findUnique({
     where: {

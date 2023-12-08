@@ -23,8 +23,6 @@ export default function ProjectsPage() {
     page,
   });
 
-  console.log(data);
-
   const [projectId, setProjectId] = useState<string>("");
   const [sheetDetailOpen, setSheetDetailOpen] = useState<boolean>(false);
 
@@ -57,7 +55,7 @@ export default function ProjectsPage() {
         </div>
       ) : (
         <div className="grid lg:grid-cols-4 gap-4 mt-5">
-          {data?.data.map((project: IProject) => (
+          {data?.data?.data.map((project: IProject) => (
             <CardProject
               project={project}
               onClick={() => {
