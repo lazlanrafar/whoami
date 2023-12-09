@@ -9,6 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { siteConfig } from "@/constants";
 import supabase from "@/lib/supabase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -41,6 +42,9 @@ export default function LoginPage() {
     const { error } = await supabase.auth.signUp({
       email: values.email,
       password: values.password,
+      options: {
+        emailRedirectTo: siteConfig.url,
+      },
     });
 
     if (error) toast.error(error.message);
