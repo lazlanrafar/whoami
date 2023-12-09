@@ -2,11 +2,15 @@ import supabase from "@/lib/supabase";
 import { Button } from "../ui/button";
 import { FaGithub } from "react-icons/fa";
 import { toast } from "sonner";
+import { siteConfig } from "@/constants";
 
 export default function ButtonLoginGithub() {
   const signInWithGithub = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
+      options: {
+        redirectTo: siteConfig.url,
+      },
     });
 
     if (error) {
