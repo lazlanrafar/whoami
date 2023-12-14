@@ -16,7 +16,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "../ui/textarea";
 import { useGetSkillQuery } from "@/api/event/skill";
 import { IProjectForm, ISkill } from "@/types";
-import SelectMultiple, { ISelectMultiple } from "../molecules/select-multiple";
 import { formProjectSchema } from "@/schemas";
 import {
   useCreateProjectMutation,
@@ -27,9 +26,15 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { whoAmiAsset } from "@/lib/utils";
+import { Combobox } from "../atoms/combobox";
 
 interface Props {
   projectId?: string;
+}
+
+interface ISelectMultiple {
+  label: string;
+  value: string;
 }
 
 export default function FormProject({ projectId }: Props) {
@@ -241,12 +246,15 @@ export default function FormProject({ projectId }: Props) {
           )}
         />
 
-        <SelectMultiple
-          label="Tech Stack"
-          items={listSkill}
-          values={selectedSkill}
-          onValueChange={(value) => setSelectedSkill(value)}
-        />
+        <div>
+          <Combobox
+            label="Technology"
+            message="Technology data is coming from skill data"
+            items={listSkill}
+            values={selectedSkill}
+            onValueChange={(value) => setSelectedSkill(value)}
+          />
+        </div>
 
         <div className="flex justify-end">
           <Button
