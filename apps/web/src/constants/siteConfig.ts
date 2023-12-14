@@ -1,7 +1,10 @@
 export const siteConfig = {
   title: "Whoami",
   description: "Whoami is a simple web app to show your identity.",
-  url: "https://whoami.lazlanrafar.com",
+  url:
+    process.env.NODE_ENV === "production"
+      ? "https://whoami.lazlanrafar.com"
+      : "http://localhost:3000",
   author: "Latoe",
   links: {
     github: "https://github.com/lazlanrafar/whoami",

@@ -3,6 +3,7 @@
 import { useGetProjectQuery } from "@/api/event/project";
 import CardProject from "@/components/molecules/card-project";
 import SkeletonProject from "@/components/molecules/skeleton-project";
+import DataNotFound from "@/components/organisms/data-not-found";
 import DetailProject from "@/components/organisms/detail-project";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,7 +20,7 @@ export default function ProjectsPage() {
   const searchParams = useSearchParams();
 
   const { user } = useStore();
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("[Unknown]");
 
   useEffect(() => {
     setUsername(user?.user_metadata?.preferred_username ?? "");
@@ -42,31 +43,6 @@ export default function ProjectsPage() {
   useEffect(() => {
     refetch();
   }, [limit, searchDebounce]);
-
-  const loadMoreRef = useRef<HTMLDivElement>(null);
-
-  let intersectionObserver: IntersectionObserver | null = null;
-  if (typeof window !== "undefined") {
-    intersectionObserver = new IntersectionObserver((entries) => {
-      if (entries[0].intersectionRatio > 0) return;
-
-      if (data?.data?.pagination.next_page && !isLoading && !isFetching) {
-        setLimit(limit * 2);
-      }
-    });
-  }
-
-  useEffect(() => {
-    if (loadMoreRef.current) {
-      intersectionObserver?.observe(loadMoreRef.current);
-    }
-
-    return () => {
-      if (loadMoreRef.current) {
-        intersectionObserver?.unobserve(loadMoreRef.current);
-      }
-    };
-  }, [loadMoreRef, intersectionObserver]);
 
   const [projectId, setProjectId] = useState<string>("");
   const [sheetDetailOpen, setSheetDetailOpen] = useState<boolean>(false);
@@ -137,6 +113,7 @@ export default function ProjectsPage() {
             <div className="flex justify-center mt-5">
               <Button
                 size={"sm"}
+                variant={"outline"}
                 onClick={() => setLimit(limit * 2)}
                 loading={isLoading || isFetching}
               >
@@ -146,19 +123,8 @@ export default function ProjectsPage() {
           )}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center mt-32">
-          <img
-            src="/not-found.svg"
-            alt="Not Found"
-            className="h-20 w-2h-20 mb-5 text-foreground"
-          />
-          <p className="text-muted-foreground text-sm">
-            Project not found, try to add new project.
-          </p>
-        </div>
+        <DataNotFound message="Project not found, try to add new project." />
       )}
-
-      <div ref={loadMoreRef} />
 
       <DetailProject
         projectId={projectId}
