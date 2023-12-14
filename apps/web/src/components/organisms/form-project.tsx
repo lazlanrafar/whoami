@@ -27,6 +27,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { whoAmiAsset } from "@/lib/utils";
 import { Combobox } from "../atoms/combobox";
+import { Checkbox } from "../ui/checkbox";
 
 interface Props {
   projectId?: string;
@@ -231,6 +232,21 @@ export default function FormProject({ projectId }: Props) {
           )}
         />
 
+        <div className="items-top flex space-x-2">
+          <Checkbox id="terms1" />
+          <div className="grid gap-1.5 leading-none">
+            <label
+              htmlFor="terms1"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Is Project Public?
+            </label>
+            <p className="text-sm text-muted-foreground">
+              Use this option if you want to show your project to public
+            </p>
+          </div>
+        </div>
+
         <FormField
           control={form.control}
           name="source_code"
@@ -245,6 +261,21 @@ export default function FormProject({ projectId }: Props) {
             </FormItem>
           )}
         />
+
+        <div className="items-top flex space-x-2">
+          <Checkbox id="terms1" />
+          <div className="grid gap-1.5 leading-none">
+            <label
+              htmlFor="terms1"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              Is Project Open Source?
+            </label>
+            <p className="text-sm text-muted-foreground">
+              Use this option if you want to show your source code to public
+            </p>
+          </div>
+        </div>
 
         <div>
           <Combobox
